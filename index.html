@@ -781,6 +781,35 @@
             .tg-btn::after {
                 font-size: 20px;
             }
+            
+            .animated-title-container {
+                max-width: 700px;
+                height: 90px;
+            }
+            
+            .title-word {
+                font-size: 3rem;
+            }
+            
+            .calculator {
+                padding: 25px;
+            }
+            
+            .param {
+                padding: 18px;
+            }
+            
+            @keyframes slideWords {
+                0%, 40% {
+                    transform: translateX(120px);
+                }
+                50%, 90% {
+                    transform: translateX(-120px);
+                }
+                100% {
+                    transform: translateX(120px);
+                }
+            }
         }
         
         @media (max-width: 768px) {
@@ -840,6 +869,20 @@
             .download-link {
                 flex-wrap: nowrap !important;
                 min-height: 60px !important;
+                gap: 10px;
+            }
+            
+            .input-with-arrows {
+                width: 100%;
+            }
+            
+            .input-arrow-group {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .slider-container {
+                margin: 10px 0;
             }
         }
         
@@ -852,6 +895,10 @@
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 10px;
+            }
+            
+            .slider {
+                width: 100%;
             }
             
             .marker {
@@ -881,6 +928,14 @@
             .tg-btn::after {
                 font-size: 16px;
             }
+            
+            .param-controls {
+                gap: 10px;
+            }
+            
+            .input-arrow-group .number-input {
+                font-size: 0.9rem;
+            }
         }
 
         @media (max-width: 768px) {
@@ -895,6 +950,183 @@
             
             .warning-alert i, .success-alert i {
                 font-size: 1.2rem;
+            }
+            
+            .animated-title-container {
+                height: 80px;
+            }
+            
+            .title-word {
+                font-size: 2.5rem;
+            }
+            
+            @keyframes slideWords {
+                0%, 40% {
+                    transform: translateX(100px);
+                }
+                50%, 90% {
+                    transform: translateX(-100px);
+                }
+                100% {
+                    transform: translateX(100px);
+                }
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .animated-title-container {
+                height: 60px;
+            }
+            
+            .title-word {
+                font-size: 1.8rem;
+            }
+            
+            .animated-title-track {
+                gap: 20px;
+            }
+            
+            @keyframes slideWords {
+                0%, 40% {
+                    transform: translateX(70px);
+                }
+                50%, 90% {
+                    transform: translateX(-70px);
+                }
+                100% {
+                    transform: translateX(70px);
+                }
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                gap: 20px;
+                padding: 10px;
+            }
+            
+            .header {
+                margin-bottom: 20px;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+                padding: 0 10px;
+            }
+            
+            .param {
+                padding: 15px;
+                min-height: 250px;
+            }
+            
+            .param-name {
+                font-size: 1rem;
+            }
+            
+            .input-with-arrows {
+                width: 100%;
+            }
+            
+            .input-arrow-group .number-input {
+                width: 80px;
+                height: 28px;
+                font-size: 0.9rem;
+                padding: 8px;
+            }
+            
+            .input-label {
+                font-size: 0.75rem;
+            }
+            
+            .scale-container {
+                padding: 30px 0;
+            }
+            
+            .scale {
+                margin-bottom: 50px;
+            }
+            
+            .interpretation {
+                font-size: 1.2rem;
+                padding: 12px;
+                min-height: 80px;
+            }
+            
+            .download-btn, .copy-result-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .param-description {
+                font-size: 0.8rem;
+                max-height: 100px;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .title {
+                font-size: 1.6rem;
+            }
+            
+            .title-word {
+                font-size: 1.5rem;
+            }
+            
+            .animated-title-container {
+                height: 50px;
+            }
+            
+            .subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .formula {
+                padding: 15px;
+                margin: 15px 0 30px 0;
+            }
+            
+            .formula .katex {
+                font-size: 0.8rem !important;
+            }
+            
+            .param {
+                padding: 12px;
+            }
+            
+            .input-arrow-group .number-input {
+                width: 70px;
+                font-size: 0.85rem;
+            }
+            
+            .marker {
+                font-size: 1rem;
+            }
+            
+            .marker-value {
+                font-size: 0.65rem;
+            }
+            
+            .interpretation {
+                font-size: 1rem;
+            }
+            
+            .download-btn, .copy-result-btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+            
+            @keyframes slideWords {
+                0%, 40% {
+                    transform: translateX(50px);
+                }
+                50%, 90% {
+                    transform: translateX(-50px);
+                }
+                100% {
+                    transform: translateX(50px);
+                }
             }
         }
         
