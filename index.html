@@ -679,7 +679,22 @@
             box-shadow: 0 10px 20px rgba(72, 219, 251, 0.2);
         }
         
-        .share-btn:hover {
+        .copy-result-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(46, 204, 113, 0.5);
+            cursor: pointer;
+        }
+        
+        .copy-result-btn:hover {
             background: rgba(46, 204, 113, 0.4);
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(46, 204, 113, 0.2);
@@ -826,14 +841,6 @@
                 flex-wrap: nowrap !important;
                 min-height: 60px !important;
             }
-
-            .share-btn {
-                min-width: 200px !important;
-                min-height: 46px !important;
-                display: inline-flex !important;
-                visibility: visible !important;
-                opacity: 1 !important;
-            }
         }
         
         @media (max-width: 480px) {
@@ -946,8 +953,8 @@
             <a href="Tusinskaya_Amanitova_Cherepov_Index_NLS_2026.pdf" class="download-btn" download>
                 <i class="fas fa-download"></i> Скачать оригинальную работу (PDF)
             </a>
-            <button class="share-btn" id="share-results">
-                <i class="fas fa-share"></i> Поделиться результатом
+            <button class="copy-result-btn" id="copy-result">
+                <i class="fas fa-clipboard"></i> Копировать результат
             </button>
         </div>
     </div>
@@ -1556,7 +1563,7 @@
         }
         
         function setupShareButton() {
-            const shareButton = document.getElementById('share-results');
+            const shareButton = document.getElementById('copy-result');
             
             shareButton.addEventListener('click', async function() {
                 const nls = Math.round(currentNLS);
