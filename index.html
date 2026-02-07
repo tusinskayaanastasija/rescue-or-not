@@ -918,70 +918,98 @@
             mask-image: linear-gradient(
                 to right,
                 transparent 0%,
-                black 20%,
-                black 80%,
+                black 15%,
+                black 85%,
                 transparent 100%
             );
             -webkit-mask-image: linear-gradient(
                 to right,
                 transparent 0%,
-                black 20%,
-                black 80%,
+                black 15%,
+                black 85%,
                 transparent 100%
             );
         }
         
         .animated-title-track {
             display: flex;
-            position: absolute;
-            left: 0;
-            top: 0;
+            position: relative;
             height: 100%;
             align-items: center;
-            gap: 40px;
-            padding: 0 100px;
-            animation: titleShift 8s infinite ease-in-out;
+            justify-content: center;
+            gap: 30px;
+            animation: slideWords 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+            width: 100%;
         }
         
         .title-word {
             font-size: 3.5rem;
-            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            font-weight: bold;
+            letter-spacing: 1px;
+            flex-shrink: 0;
+            transition: all 0.5s ease;
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4));
+            white-space: nowrap;
+            opacity: 0.3;
+        }
+        
+        .title-word:nth-child(1) {
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            font-weight: bold;
-            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            letter-spacing: 1px;
-            flex-shrink: 0;
-            opacity: 0.3; /* Слова по умолчанию блеклые */
-            transition: all 0.8s ease;
-            min-width: 200px;
-            text-align: center;
-            position: relative;
-            filter: blur(1px);
-            transform: scale(0.9);
+            animation: fadeWord1 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
         }
         
-        /* Подсвеченные слова - текущая пара */
-        .title-word.highlighted {
-            opacity: 1 !important;
-            transform: scale(1.1) !important;
-            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4)) !important;
-            z-index: 2;
+        .title-word:nth-child(2) {
+            background: linear-gradient(135deg, #48dbfb, #ff9ff3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            opacity: 1;
         }
         
-        @keyframes titleShift {
-            0% {
-                transform: translateX(0);
+        .title-word:nth-child(3) {
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: fadeWord3 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+        }
+        
+        @keyframes slideWords {
+            0%, 40% {
+                transform: translateX(150px);
             }
-            33% {
-                transform: translateX(0);
-            }
-            66% {
-                transform: translateX(calc(-10% + 100px));
+            50%, 90% {
+                transform: translateX(-150px);
             }
             100% {
-                transform: translateX(0);
+                transform: translateX(150px);
+            }
+        }
+        
+        @keyframes fadeWord1 {
+            0%, 40% {
+                opacity: 1;
+            }
+            50%, 90% {
+                opacity: 0.3;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeWord3 {
+            0%, 40% {
+                opacity: 0.3;
+            }
+            50%, 90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.3;
             }
         }
     }
@@ -999,9 +1027,9 @@
             <div class="animated-title-container">
                 <div class="animated-title-mask">
                     <div class="animated-title-track" id="animated-title-track">
-                        <span class="title-word" data-word="спасать">СПАСАТЬ</span>
-                        <span class="title-word" data-word="нельзя">НЕЛЬЗЯ</span>
-                        <span class="title-word" data-word="бросить">БРОСИТЬ</span>
+                        <span class="title-word">СПАСАТЬ</span>
+                        <span class="title-word">НЕЛЬЗЯ</span>
+                        <span class="title-word">БРОСИТЬ</span>
                     </div>
                 </div>
             </div>
@@ -1705,68 +1733,18 @@
         }
         
         function enhanceTitleAnimation() {
-            const track = document.getElementById('animated-title-track');
-            const words = document.querySelectorAll('.title-word');
-            
-            if (!track) return;
-            
-            // Функция для определения, какие слова сейчас видимы (в паре)
-            function updateWordStates() {
-                const containerRect = track.parentElement.getBoundingClientRect();
-                const center = containerRect.left + containerRect.width / 2;
-                
-                // Сначала снимаем подсветку со всех слов
-                words.forEach(word => {
-                    word.classList.remove('highlighted');
-                    word.style.opacity = 0.3;
-                    word.style.transform = 'scale(0.9)';
-                    word.style.filter = 'blur(1px)';
-                });
-                
-                // Находим два слова, которые ближе всего к центру
-                const sortedWords = Array.from(words).map(word => {
-                    const wordRect = word.getBoundingClientRect();
-                    const wordCenter = wordRect.left + wordRect.width / 2;
-                    return {
-                        element: word,
-                        distance: Math.abs(wordCenter - center)
-                    };
-                }).sort((a, b) => a.distance - b.distance);
-                
-                // Подсвечиваем два ближайших слова (текущую пару)
-                sortedWords.slice(0, 2).forEach(item => {
-                    item.element.classList.add('highlighted');
-                    item.element.style.opacity = 1;
-                    item.element.style.transform = 'scale(1.1)';
-                    item.element.style.filter = 'drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4))';
-                });
-            }
-            
-            // Обновляем состояния при каждом кадре анимации
-            function onAnimationFrame() {
-                updateWordStates();
-                requestAnimationFrame(onAnimationFrame);
-            }
-            
-            // Запускаем обновление
-            requestAnimationFrame(onAnimationFrame);
-            
-            // Останавливаем/возобновляем анимацию при наведении
             const container = document.querySelector('.animated-title-container');
             if (container) {
                 container.addEventListener('mouseenter', () => {
-                    track.style.animationPlayState = 'paused';
+                    const track = document.getElementById('animated-title-track');
+                    if (track) track.style.animationPlayState = 'paused';
                 });
                 
                 container.addEventListener('mouseleave', () => {
-                    track.style.animationPlayState = 'running';
+                    const track = document.getElementById('animated-title-track');
+                    if (track) track.style.animationPlayState = 'running';
                 });
             }
-            
-            // Инициализация начального состояния
-            setTimeout(() => {
-                updateWordStates();
-            }, 100);
         }
 
         document.addEventListener('DOMContentLoaded', function() {
