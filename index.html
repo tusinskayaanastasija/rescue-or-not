@@ -1210,7 +1210,7 @@
                 slider.addEventListener('input', function() {
                     input.value = this.value;
                     updateParameter(param.id, parseFloat(this.value), param.weight);
-                    calculateNLS();
+                    calculateWS();
                 });
                 
                 input.addEventListener('input', function() {
@@ -1222,7 +1222,7 @@
                     this.value = value;
                     slider.value = value;
                     updateParameter(param.id, value, param.weight);
-                    calculateNLS();
+                    calculateWS();
                 });
                 
                 weightInput.addEventListener('input', function() {
@@ -1233,7 +1233,7 @@
                     
                     this.value = weight;
                     updateParameter(param.id, param.value, weight);
-                    calculateNLS();
+                    calculateWS();
                 });
                 
                 // Обработчики для кастомных стрелок
@@ -1254,7 +1254,7 @@
                         input.value = currentValue;
                         slider.value = currentValue;
                         updateParameter(param.id, currentValue, param.weight);
-                        calculateNLS();
+                        calculateWS();
                     });
                 });
                 
@@ -1278,7 +1278,7 @@
                         
                         weightInput.value = currentWeight;
                         updateParameter(param.id, param.value, currentWeight);
-                        calculateNLS();
+                        calculateWS();
                     });
                 });
             });
@@ -1296,7 +1296,7 @@
             validateWeights();
         }
 
-        function calculateNLS() {
+        function calculateWS() {
             let weightedNorm = 0;
             
             parameters.forEach(param => {
@@ -1306,29 +1306,29 @@
             
             const norm = Math.sqrt(weightedNorm);
             
-            const nls = 1000 * Math.exp(-norm);
+            const ws = 1000 * Math.exp(-norm);
             
-            currentNLS = nls;
+            currentNLS = ws;
             
-            updateIndicator(nls);
+            updateIndicator(ws);
             
-            updateInterpretation(nls);
+            updateInterpretation(ws);
             
-            return nls;
+            return ws;
         }
 
-        function updateIndicator(nls) {
+        function updateIndicator(ws) {
             const indicator = document.getElementById('indicator');
             const indicatorLabel = document.getElementById('indicator-label');
             const triangle = document.querySelector('.triangle');
             
-            let position = (nls / 1000) * 100;
+            let position = (ws / 1000) * 100;
             if (position < 0) position = 0;
             if (position > 100) position = 100;
             
             indicator.style.left = `${position}%`;
             
-            indicatorLabel.textContent = `WS = ${Math.round(nls)}`;
+            indicatorLabel.textContent = `WS = ${Math.round(ws)}`;
             
             let color;
             if (position <= 10) {
@@ -1378,10 +1378,10 @@
             return rgbToHex(r, g, b);
         }
 
-        function updateInterpretation(nls) {
+        function updateInterpretation(ws) {
             const interpretationEl = document.getElementById('interpretation');
             
-            const interpretation = interpretations.find(item => nls >= item.min && nls <= item.max);
+            const interpretation = interpretations.find(item => ws >= item.min && ws <= item.max);
             
             if (interpretation) {
                 interpretationEl.textContent = interpretation.text;
@@ -1389,13 +1389,13 @@
             }
         }
         
-        function getInterpretationText(nls) {
-            const interpretation = interpretations.find(item => nls >= item.min && nls <= item.max);
+        function getInterpretationText(ws) {
+            const interpretation = interpretations.find(item => ws >= item.min && ws <= item.max);
             return interpretation ? interpretation.text : "";
         }
         
-        function shouldRescue(nls) {
-            return nls >= 500 ? "стоит" : "не стоит";
+        function shouldRescue(ws) {
+            return ws >= 500 ? "стоит" : "не стоит";
         }
 
         function initRandomValues() {
@@ -1410,7 +1410,7 @@
                 param.value = randomValue;
             });
             
-            calculateNLS();
+            calculateWS();
         }
 
         function validateWeights() {
@@ -1419,7 +1419,7 @@
             if (totalWeight > 1) {
                 showWeightWarning();
                 
-                calculateNLS();
+                calculateWS();
                 
                 return false;
             }
@@ -1530,7 +1530,7 @@
                 }
             });
             
-            calculateNLS();
+            calculateWS();
         }
         
         async function copyToClipboard(text) {
@@ -1566,13 +1566,13 @@
             const shareButton = document.getElementById('copy-result');
             
             shareButton.addEventListener('click', async function() {
-                const nls = Math.round(currentNLS);
-                const rescueStatus = shouldRescue(nls);
+                const ws = Math.round(currentNLS);
+                const rescueStatus = shouldRescue(ws);
                 const encodedString = encodeParameters();
                 
                 const shareUrl = window.location.href.split('#')[0] + `#s=${encodedString}`;
                 
-                const shareText = `WS-индекс: ${nls}! Ваш народ ${rescueStatus} спасать. ${shareUrl}`;
+                const shareText = `WS-индекс: ${ws}! Ваш народ ${rescueStatus} спасать. ${shareUrl}`;
                 
                 await copyToClipboard(shareText);
             });
