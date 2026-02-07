@@ -978,10 +978,10 @@
                 transform: translateX(0);
             }
             40% {
-                transform: translateX(calc(-50% + 90px)); 
+                transform: translateX(calc(-50% + 80px)); 
             }
             60% {
-                transform: translateX(calc(-50% + 90px));
+                transform: translateX(calc(-50% + 100px));
             }
             90% {
                 transform: translateX(0);
@@ -990,119 +990,7 @@
                 transform: translateX(0);
             }
         }
-        
-        /* Адаптивность */
-        @media (max-width: 1000px) {
-            .animated-title-container {
-                height: 80px;
-            }
-            
-            .title-word {
-                font-size: 2.8rem;
-                min-width: 160px;
-            }
-            
-            .animated-title-track {
-                gap: 30px;
-                padding: 0 80px;
-            }
-            
-            @keyframes titleShift {
-                0% {
-                    transform: translateX(0);
-                }
-                10% {
-                    transform: translateX(0);
-                }
-                40% {
-                    transform: translateX(calc(-50% + 80px));
-                }
-                60% {
-                    transform: translateX(calc(-50% + 80px));
-                }
-                90% {
-                    transform: translateX(0);
-                }
-                100% {
-                    transform: translateX(0);
-                }
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .animated-title-container {
-                height: 60px;
-                margin-bottom: 20px;
-            }
-            
-            .title-word {
-                font-size: 2rem;
-                min-width: 120px;
-            }
-            
-            .animated-title-track {
-                gap: 20px;
-                padding: 0 60px;
-            }
-            
-            @keyframes titleShift {
-                0% {
-                    transform: translateX(0);
-                }
-                10% {
-                    transform: translateX(0);
-                }
-                40% {
-                    transform: translateX(calc(-50% + 60px));
-                }
-                60% {
-                    transform: translateX(calc(-50% + 60px));
-                }
-                90% {
-                    transform: translateX(0);
-                }
-                100% {
-                    transform: translateX(0);
-                }
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .animated-title-container {
-                height: 50px;
-            }
-            
-            .title-word {
-                font-size: 1.8rem;
-                min-width: 100px;
-            }
-            
-            .animated-title-track {
-                gap: 15px;
-                padding: 0 40px;
-            }
-            
-            @keyframes titleShift {
-                0% {
-                    transform: translateX(0);
-                }
-                10% {
-                    transform: translateX(0);
-                }
-                40% {
-                    transform: translateX(calc(-50% + 40px));
-                }
-                60% {
-                    transform: translateX(calc(-50% + 40px));
-                }
-                90% {
-                    transform: translateX(0);
-                }
-                100% {
-                    transform: translateX(0);
-                }
-            }
-        }
+    }
     </style>
 </head>
 <body>
