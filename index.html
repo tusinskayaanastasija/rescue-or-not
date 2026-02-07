@@ -1092,7 +1092,7 @@
             const formulaElement = document.getElementById('formula');
             
             const formula = String.raw`
-                \text{НЛС}(P, t) = 1000 \cdot \exp\left(-\|\mathbf{x}\|_{W}\right), \quad 
+                \text{WS}(P, t) = 1000 \cdot \exp\left(-\|\mathbf{x}\|_{W}\right), \quad 
                 \|\mathbf{x}\|_{W} = \sqrt{\sum_{i=1}^{n} w_i \cdot x_i^2}
             `;
             
@@ -1321,7 +1321,7 @@
             
             indicator.style.left = `${position}%`;
             
-            indicatorLabel.textContent = `НЛС = ${Math.round(nls)}`;
+            indicatorLabel.textContent = `WS = ${Math.round(nls)}`;
             
             let color;
             if (position <= 10) {
