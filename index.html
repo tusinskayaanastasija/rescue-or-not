@@ -1455,46 +1455,56 @@
             }, 10);
         }
         
-        // Кодирование параметров в компактную строку base62
         function encodeParameters() {
-            // Создаем битовую маску для всех параметров
-            let encodedValue = 0;
-            let bitPosition = 0;
+            let encodedParts = [];
             
-            // Для каждого параметра кодируем значение и вес
             parameters.forEach((param, index) => {
+                // Масштабируем значение до 0-1023 (10 бит)
                 const scaledValue = Math.round((param.value / param.max) * 1023);
+                // Масштабируем вес до 0-63 (6 бит)
                 const scaledWeight = Math.round(param.weight * 63);
                 
-                // Упаковываем в одно 16-битное число (10 бит на значение, 6 бит на вес)
+                // Упаковываем в одно число: 16 бит = 10 бит значения + 6 бит веса
                 const packed = (scaledValue << 6) | scaledWeight;
                 
-                // Добавляем к общему числу
-                encodedValue |= (packed << bitPosition);
-                bitPosition += 16;
+                // Кодируем в base62 (длина 2-3 символа)
+                let encoded = encodeBase62(packed);
+                // Дополняем до 3 символов для единообразия
+                while (encoded.length < 3) {
+                    encoded = '0' + encoded;
+                }
+                encodedParts.push(encoded);
             });
             
-            // Кодируем в base62
-            return encodeBase62(encodedValue);
+            return encodedParts.join('');
         }
         
         // Декодирование параметров из строки base62
         function decodeParameters(encodedString) {
             try {
-                const decodedValue = decodeBase62(encodedString);
+                // Проверяем длину строки (10 параметров * 3 символа = 30 символов)
+                if (encodedString.length !== 30) {
+                    console.error('Некорректная длина строки параметров');
+                    return false;
+                }
                 
-                parameters.forEach((param, index) => {
-                    const bitPosition = index * 16;
-                    const packed = (decodedValue >> bitPosition) & 0xFFFF; // 16 бит
+                // Разбиваем на части по 3 символа
+                for (let i = 0; i < 10; i++) {
+                    const part = encodedString.substr(i * 3, 3);
+                    const packed = decodeBase62(part);
                     
                     // Извлекаем значение и вес
                     const scaledWeight = packed & 0x3F; // Младшие 6 бит (0-63)
                     const scaledValue = (packed >> 6) & 0x3FF; // Следующие 10 бит (0-1023)
                     
                     // Восстанавливаем значения
-                    param.weight = scaledWeight / 63;
-                    param.value = (scaledValue / 1023) * param.max;
-                });
+                    parameters[i].weight = scaledWeight / 63;
+                    parameters[i].value = (scaledValue / 1023) * parameters[i].max;
+                    
+                    // Округляем значения для отображения
+                    parameters[i].weight = Math.round(parameters[i].weight * 100) / 100;
+                    parameters[i].value = Math.round(parameters[i].value);
+                }
                 
                 return true;
             } catch (e) {
@@ -1507,9 +1517,12 @@
             const hash = window.location.hash;
             if (hash && hash.startsWith('#s=')) {
                 const encodedString = hash.substring(3);
+                console.log('Декодируем параметры из URL:', encodedString);
                 if (encodedString && decodeParameters(encodedString)) {
                     updateUIFromParameters();
                     return true;
+                } else {
+                    console.error('Не удалось декодировать параметры из URL');
                 }
             }
             
@@ -1517,16 +1530,15 @@
         }
         
         function updateUIFromParameters() {
-            parameters.forEach(param => {
+            parameters.forEach((param, index) => {
                 const slider = document.getElementById(`slider-${param.id}`);
                 const input = document.getElementById(`input-${param.id}`);
                 const weightInput = document.getElementById(`weight-${param.id}`);
                 
-                if (slider) slider.value = Math.round(param.value);
-                if (input) input.value = Math.round(param.value);
+                if (slider) slider.value = param.value;
+                if (input) input.value = param.value;
                 if (weightInput) {
-                    // Округляем вес до 2 знаков после запятой для отображения
-                    weightInput.value = Math.round(param.weight * 100) / 100;
+                    weightInput.value = param.weight.toFixed(2);
                 }
             });
             
