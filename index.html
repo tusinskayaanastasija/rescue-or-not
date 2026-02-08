@@ -2,10 +2,12 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Стоит ли спасать этот народ?</title>
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Профессиональные шрифты без засечек -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@300;400;500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- KaTeX для рендеринга формул -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <style>
@@ -13,54 +15,126 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
         }
         
+        /* Динамический фон с улучшенной анимацией */
         body {
-            background: linear-gradient(135deg, 
-                #0a0a0a 0%, 
-                #1a1a2e 25%, 
-                #16213e 50%, 
-                #0f3460 75%, 
-                #000000 100%);
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(26, 26, 46, 0.9) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(22, 33, 62, 0.7) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(15, 52, 96, 0.8) 0%, transparent 50%),
+                linear-gradient(135deg, 
+                    #0a0a0a 0%, 
+                    #1a1a2e 25%, 
+                    #16213e 50%, 
+                    #0f3460 75%, 
+                    #000000 100%);
             background-attachment: fixed;
+            background-size: 400% 400%;
             color: #f0f0f0;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             padding: 20px;
             overflow-x: hidden;
             position: relative;
+            animation: gradientShift 25s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 0%; }
+            25% { background-position: 100% 25%; }
+            50% { background-position: 80% 80%; }
+            75% { background-position: 20% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        /* Динамические частицы */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(254, 202, 87, 0.1);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translate(100vw, -100vh) rotate(360deg);
+                opacity: 0;
+            }
         }
         
-        .telegram-buttons {
-            position: fixed;
-            left: 20px;
-            bottom: 20px;
+        /* Телеграм секция */
+        .telegram-section {
+            width: 100%;
+            max-width: 1200px;
             display: flex;
             flex-direction: column;
+            align-items: center;
             gap: 15px;
+            margin: 40px auto 20px;
+            padding: 20px;
             z-index: 1000;
         }
         
+        .telegram-title {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #feca57;
+            text-align: center;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 20px rgba(254, 202, 87, 0.5);
+            text-transform: uppercase;
+        }
+        
+        .telegram-buttons {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        
         .tg-btn {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             border: none;
             cursor: pointer;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             overflow: hidden;
+            text-decoration: none !important;
         }
         
         .tg-btn::before {
@@ -70,18 +144,18 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
             border-radius: 50%;
             transition: all 0.3s ease;
         }
         
         .tg-btn:hover {
-            transform: scale(1.15);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+            transform: scale(1.2) rotate(5deg);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
         }
         
         .tg-btn:hover::before {
-            background: rgba(0, 0, 0, 0.1);
+            background: rgba(0, 0, 0, 0.2);
         }
         
         .tg-btn-1 {
@@ -96,118 +170,191 @@
             background-image: url('./telegram_bg_3.jpg');
         }
         
-        /* Иконки телеграма внутри кнопок (на случай если фоны не загрузятся) */
         .tg-btn::after {
             content: '\f2c6';
             font-family: 'Font Awesome 6 Brands';
             font-weight: 400;
             color: white;
-            font-size: 24px;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            font-size: 28px;
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.7);
             z-index: 2;
             transition: all 0.3s ease;
         }
         
         .tg-btn:hover::after {
-            transform: scale(1.1);
+            transform: scale(1.2) rotate(-5deg);
             color: #0088cc;
+            text-shadow: 0 0 15px rgba(0, 136, 204, 0.7);
         }
         
         .container {
-            max-width: 1600px;
+            max-width: 1800px;
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             gap: 30px;
             padding: 20px;
             position: relative;
             z-index: 1;
+            flex: 1;
         }
         
         .header {
             text-align: center;
             margin-bottom: 30px;
             animation: fadeIn 1s ease-out;
+            width: 100%;
         }
         
         .title {
-            font-size: 3.5rem;
+            font-family: 'Manrope', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 800;
             background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             letter-spacing: 1px;
+            text-transform: uppercase;
         }
         
         .subtitle {
-            font-size: 1.4rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 400;
             color: #aaa;
             font-style: italic;
             max-width: 800px;
-            line-height: 1.5;
+            line-height: 1.6;
             margin: 0 auto;
             padding: 0 20px;
         }
         
+        /* Калькулятор */
         .calculator {
-            background: rgba(30, 30, 46, 0.8);
+            background: rgba(30, 30, 46, 0.95);
             border-radius: 20px;
-            padding: 30px;
+            padding: 30px 40px;
             width: 100%;
-            max-width: 1600px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 1800px;
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.7),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             animation: slideUp 1s ease-out 0.3s both;
+            position: relative;
+            overflow: visible;
+            margin: 0 20px;
         }
         
+        /* Бокс с формулой - ЯРКОЕ СВЕЧЕНИЕ */
         .formula {
-            background: rgba(20, 25, 45, 0.8);
-            padding: 30px;
-            border-radius: 15px;
-            margin: 0px 0 50px 0;
+            background: 
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px) 0 0 / 20px 20px,
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px) 0 0 / 20px 20px,
+                rgba(20, 25, 45, 0.98);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 0px 0 60px 0;
             text-align: center;
-            border-left: 4px solid #feca57;
             line-height: 1.6;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 0 80px rgba(254, 202, 87, 0.4), /* Яркое свечение */
+                0 0 120px rgba(254, 202, 87, 0.2); /* Еще ярче */
             transition: all 0.3s ease;
-            min-height: 120px;
+            min-height: 140px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            border: 2px solid rgba(254, 202, 87, 0.5);
+            animation: formulaGlow 3s ease-in-out infinite alternate;
         }
 
-        .formula::before {
-            content: '';
+        @keyframes formulaGlow {
+            0% {
+                box-shadow: 
+                    0 15px 40px rgba(0, 0, 0, 0.6),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                    0 0 60px rgba(254, 202, 87, 0.3),
+                    0 0 100px rgba(254, 202, 87, 0.15);
+                border-color: rgba(254, 202, 87, 0.4);
+            }
+            100% {
+                box-shadow: 
+                    0 15px 40px rgba(0, 0, 0, 0.6),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                    0 0 100px rgba(254, 202, 87, 0.5),
+                    0 0 150px rgba(254, 202, 87, 0.25);
+                border-color: rgba(254, 202, 87, 0.7);
+            }
+        }
+
+        /* Блик на формуле */
+        .formula-highlight {
             position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, 
-                #ff6b6b 0%,
-                #feca57 25%,
-                #48dbfb 50%,
-                #ff9ff3 75%,
-                #ff6b6b 100%);
-            z-index: 1;
+            left: -100px;
+            width: 60px;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(254, 202, 87, 0.4),
+                transparent
+            );
+            pointer-events: none;
+            z-index: 2;
+            transform: skewX(-15deg);
+            animation: highlightMove 10s ease-in-out infinite;
         }
 
-        .formula:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        @keyframes highlightMove {
+            0% {
+                left: -100px;
+                opacity: 0.3;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            50% {
+                left: calc(100% + 100px);
+                opacity: 0.3;
+            }
+            51% {
+                left: -100px;
+                opacity: 0;
+            }
+            60% {
+                opacity: 0.3;
+            }
+            100% {
+                left: calc(100% + 100px);
+                opacity: 0.3;
+            }
         }
 
-        /* Стили для KaTeX */
+        /* Контейнер для формулы */
+        .formula-container {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        /* Стили для KaTeX с ярким свечением */
         .formula .katex {
-            font-size: 1.5rem !important;
+            font-size: 1.8rem !important;
+            filter: drop-shadow(0 0 15px rgba(254, 202, 87, 0.4));
         }
         
         .formula .katex-display {
@@ -216,28 +363,39 @@
         }
         
         .formula .katex .mord {
-            color: #f0f0f0;
+            color: #ffffff;
+            font-family: 'Roboto Mono', monospace;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         }
         
         .formula .katex .mtext {
             color: #feca57;
+            font-family: 'Roboto Mono', monospace;
+            text-shadow: 0 0 15px rgba(254, 202, 87, 0.5);
         }
         
         .formula .katex .mbin {
-            color: #48dbfb;
+            color: #feca57;
+            font-family: 'Roboto Mono', monospace;
+            text-shadow: 0 0 12px rgba(254, 202, 87, 0.5);
         }
         
         .formula .katex .msqrt {
-            color: #ff9ff3;
+            color: #feca57;
+            font-family: 'Roboto Mono', monospace;
+            text-shadow: 0 0 12px rgba(254, 202, 87, 0.5);
         }
         
         .formula-description {
-            font-size: 1rem;
-            color: #aaa;
-            margin-top: 15px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            color: #ccc;
+            margin-top: 20px;
             font-style: italic;
             text-align: center;
             max-width: 800px;
+            position: relative;
+            z-index: 3;
         }
 
         .warning-alert {
@@ -259,6 +417,7 @@
             border: 2px solid rgba(255, 255, 255, 0.2);
             opacity: 0;
             transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            font-family: 'Inter', sans-serif;
         }
 
         .warning-alert.show {
@@ -285,6 +444,7 @@
             border: 2px solid rgba(255, 255, 255, 0.2);
             opacity: 0;
             transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            font-family: 'Inter', sans-serif;
         }
 
         .success-alert.show {
@@ -320,47 +480,104 @@
         .param-container {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 20px;
+            gap: 25px;
             margin-bottom: 80px;
             align-items: stretch;
         }
         
+        /* Стильные карточки с улучшенными шрифтами и анимациями */
         .param {
-            background: rgba(40, 40, 60, 0.7);
-            border-radius: 15px;
-            padding: 20px;
-            transition: all 0.3s ease;
-            border-left: 4px solid #48dbfb;
+            background: linear-gradient(145deg, 
+                rgba(30, 30, 45, 0.95) 0%, 
+                rgba(50, 50, 70, 0.9) 50%, 
+                rgba(30, 30, 45, 0.95) 100%);
+            border-radius: 18px;
+            padding: 25px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             display: flex;
             flex-direction: column;
             height: 100%;
-            min-height: 280px;
+            min-height: 320px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 12px 30px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Анимация при наведении на карточку */
+        .param:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15),
+                0 0 30px rgba(254, 202, 87, 0.2);
+            border-color: rgba(254, 202, 87, 0.3);
+        }
+        
+        .param::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                #ff6b6b 0%,
+                #feca57 33%,
+                #48dbfb 66%,
+                #ff9ff3 100%);
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .param:hover::before {
+            opacity: 1;
+            animation: gradientFlow 2s linear infinite;
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
         }
         
         .param-content {
             flex: 1;
             display: flex;
             flex-direction: column;
-        }
-        
-        .param:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
         }
         
         .param-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             flex-shrink: 0;
         }
         
         .param-name {
-            font-size: 1.1rem;
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.2rem;
             font-weight: 600;
             color: #f0f0f0;
             flex: 1;
+            letter-spacing: 0.3px;
+        }
+        
+        /* Статический вес параметра - теперь рядом с полем ввода */
+        .param-weight {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.85rem;
+            color: #feca57;
+            background: rgba(254, 202, 87, 0.15);
+            padding: 3px 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(254, 202, 87, 0.3);
+            margin-left: 10px;
+            white-space: nowrap;
         }
         
         .param-controls {
@@ -373,11 +590,20 @@
         .input-with-arrows {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 6px;
+            width: 100%;
+        }
+        
+        .input-label-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
         }
         
         .input-label {
-            font-size: 0.8rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
             color: #aaa;
             font-style: italic;
             text-align: left;
@@ -388,25 +614,21 @@
             align-items: center;
             gap: 5px;
         }
-
-        .input-arrow-group .weight-input {
-            width: 60px !important;
-            color: #feca57 !important;
-        }
         
         .input-arrow-group .number-input {
-            width: 90px;
-            height: 30px;
-            padding: 10px;
+            width: 120px;
+            height: 38px;
+            padding: 8px 12px;
             text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 8px;
             color: white;
-            font-size: 1rem;
+            font-size: 1.1rem;
             transition: all 0.3s ease;
             -moz-appearance: textfield;
             appearance: textfield;
+            font-family: 'Roboto Mono', monospace;
         }
         
         .input-arrow-group .number-input::-webkit-outer-spin-button,
@@ -418,14 +640,15 @@
         .input-arrow-group .input-arrows {
             display: flex;
             flex-direction: column;
-            gap: 0px;
+            gap: 1px;
         }
         
+        /* Кнопки-стрелочки */
         .input-arrow-group .arrow-btn {
-            width: 20px;
-            height: 14px;
-            background: rgba(72, 219, 251, 0);
-            border: none;
+            width: 22px;
+            height: 16px;
+            background: rgba(72, 219, 251, 0.15) !important;
+            border: none !important;
             color: #48dbfb;
             cursor: pointer;
             font-size: 10px;
@@ -434,85 +657,109 @@
             justify-content: center;
             padding: 0;
             transition: all 0.2s ease;
-            border-radius: 0px;
+            border-radius: 3px;
+            font-family: 'Inter', sans-serif;
         }
         
         .input-arrow-group .arrow-btn:hover {
-            background: rgba(72, 219, 251, 0.7);
-            transform: scale(1.1);
+            background: rgba(72, 219, 251, 0.3) !important;
+            transform: scale(1.15);
+            color: white;
         }
         
         .arrow-up {
-            border-radius: 2px 2px 0 0;
+            border-radius: 3px 3px 0 0;
         }
         
         .arrow-down {
-            border-radius: 0 0 2px 2px;
-        }
-        
-        .value-input {
-            color: #fff;
-        }
-        
-        .weight-input {
-            color: #feca57;
+            border-radius: 0 0 3px 3px;
         }
         
         .input-arrow-group .number-input:focus {
             outline: none;
             border-color: #48dbfb;
-            box-shadow: 0 0 10px rgba(72, 219, 251, 0.5);
-        }
-        
-        .input-arrow-group .weight-input:focus {
-            outline: none !important;
-            border-color: #feca57 !important;
-            box-shadow: 0 0 10px rgba(254, 202, 87, 0.5) !important;
+            box-shadow: 0 0 0 2px rgba(72, 219, 251, 0.2);
+            background: rgba(255, 255, 255, 0.12);
         }
         
         .slider-container {
             display: flex;
             align-items: center;
             gap: 15px;
-            margin: 15px 0;
+            margin: 25px 0 30px 0;
             flex-shrink: 0;
         }
         
         .slider {
             flex-grow: 1;
-            height: 8px;
+            height: 6px;
             -webkit-appearance: none;
             appearance: none;
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
+            border-radius: 3px;
             outline: none;
+            transition: all 0.3s ease;
         }
         
+        .slider.active {
+            background: rgba(72, 219, 251, 0.2);
+            box-shadow: 0 0 10px rgba(72, 219, 251, 0.2);
+        }
+        
+        /* Кружочки на слайдерах */
         .slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
             width: 18px;
             height: 18px;
             border-radius: 50%;
-            background: #48dbfb;
+            background: linear-gradient(135deg, #48dbfb, #0066ff);
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(72, 219, 251, 0.8);
+            box-shadow: 
+                0 0 0 1.5px rgba(255, 255, 255, 0.9),
+                0 2px 6px rgba(0, 0, 0, 0.4),
+                0 0 15px rgba(72, 219, 251, 0.5);
             transition: all 0.2s ease;
+            border: none;
         }
         
         .slider::-moz-range-thumb {
             width: 18px;
             height: 18px;
             border-radius: 50%;
-            background: #48dbfb;
+            background: linear-gradient(135deg, #48dbfb, #0066ff);
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(72, 219, 251, 0.8);
+            box-shadow: 
+                0 0 0 1.5px rgba(255, 255, 255, 0.9),
+                0 2px 6px rgba(0, 0, 0, 0.4),
+                0 0 15px rgba(72, 219, 251, 0.5);
+            transition: all 0.2s ease;
             border: none;
         }
         
+        .slider::-webkit-slider-thumb:hover,
+        .slider::-webkit-slider-thumb:active {
+            transform: scale(1.3);
+            background: linear-gradient(135deg, #ff6b6b, #ff0000);
+            box-shadow: 
+                0 0 0 2px rgba(255, 255, 255, 1),
+                0 3px 8px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(255, 107, 107, 0.6);
+        }
+        
+        .slider::-moz-range-thumb:hover,
+        .slider::-moz-range-thumb:active {
+            transform: scale(1.3);
+            background: linear-gradient(135deg, #ff6b6b, #ff0000);
+            box-shadow: 
+                0 0 0 2px rgba(255, 255, 255, 1),
+                0 3px 8px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(255, 107, 107, 0.6);
+        }
+        
         .scale-container {
-            width: 100%;
-            margin-top: 20px;
+            width: calc(100% - 80px);
+            margin: 20px auto 0;
             padding: 40px 0;
             position: relative;
         }
@@ -586,6 +833,7 @@
         }
         
         .marker-value {
+            font-family: 'Inter', sans-serif;
             font-size: 0.9rem;
             color: #aaa;
             margin-top: 5px;
@@ -595,121 +843,191 @@
             position: absolute;
             top: -70px;
             transform: translateX(-50%);
-            transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
             display: flex;
             flex-direction: column;
             align-items: center;
+            z-index: 10;
         }
         
         .indicator-label {
+            font-family: 'Manrope', sans-serif;
             margin-bottom: 10px;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: bold;
             white-space: nowrap;
-            transition: all 1s ease;
+            transition: all 0.8s ease;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+            padding: 8px 20px;
+            border-radius: 25px;
+            background: rgba(10, 10, 20, 0.85);
+            backdrop-filter: blur(15px);
+            min-width: 140px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.2;
+            height: 48px;
         }
         
         .triangle {
-            font-size: 28px;
+            font-size: 32px;
             line-height: 1;
             color: #ff6b6b;
             filter: drop-shadow(0 5px 10px rgba(255, 107, 107, 0.5));
-            transition: all 1s ease;
+            transition: all 0.8s ease;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
         }
         
         .interpretation {
+            font-family: 'Manrope', sans-serif;
             text-align: center;
-            font-size: 1.8rem;
-            font-weight: bold;
-            padding: 20px;
-            border-radius: 15px;
-            margin-top: 30px;
-            transition: all 1s ease;
-            min-height: 100px;
+            font-size: 2rem;
+            font-weight: 700;
+            padding: 25px;
+            border-radius: 18px;
+            margin-top: 40px;
+            transition: all 0.8s ease;
+            min-height: 110px;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: rgba(20, 20, 35, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         .interpretation.good {
-            background: rgba(46, 204, 113, 0.2);
+            background: linear-gradient(135deg, 
+                rgba(46, 204, 113, 0.2) 0%, 
+                rgba(46, 204, 113, 0.35) 100%);
             color: #2ecc71;
-            border: 2px solid #2ecc71;
+            border-color: rgba(46, 204, 113, 0.5);
+            box-shadow: 
+                0 10px 30px rgba(46, 204, 113, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
         
         .interpretation.ok {
-            background: rgba(241, 196, 15, 0.2);
+            background: linear-gradient(135deg, 
+                rgba(241, 196, 15, 0.2) 0%, 
+                rgba(241, 196, 15, 0.35) 100%);
             color: #f1c40f;
-            border: 2px solid #f1c40f;
+            border-color: rgba(241, 196, 15, 0.5);
+            box-shadow: 
+                0 10px 30px rgba(241, 196, 15, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
         
         .interpretation.bad {
-            background: rgba(231, 76, 60, 0.2);
+            background: linear-gradient(135deg, 
+                rgba(231, 76, 60, 0.2) 0%, 
+                rgba(231, 76, 60, 0.35) 100%);
             color: #e74c3c;
-            border: 2px solid #e74c3c;
+            border-color: rgba(231, 76, 60, 0.5);
+            box-shadow: 
+                0 10px 30px rgba(231, 76, 60, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
         
         .download-link {
-            margin-top: 30px;
+            margin-top: 40px;
             text-align: center;
             display: flex;
-            gap: 20px;
+            gap: 25px;
             flex-wrap: wrap;
             justify-content: center;
+            width: 100%;
         }
         
-        .download-btn {
+        .download-btn, .copy-result-btn {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            background: rgba(72, 219, 251, 0.2);
+            gap: 12px;
+            background: linear-gradient(135deg, 
+                rgba(72, 219, 251, 0.25) 0%, 
+                rgba(72, 219, 251, 0.45) 100%);
             color: #48dbfb;
-            padding: 12px 25px;
-            border-radius: 30px;
+            padding: 18px 35px;
+            border-radius: 35px;
             text-decoration: none;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(72, 219, 251, 0.5);
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid rgba(72, 219, 251, 0.4);
+            min-width: 280px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            font-family: 'Manrope', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
         
-        .download-btn:hover {
-            background: rgba(72, 219, 251, 0.4);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(72, 219, 251, 0.2);
+        .download-btn::before, .copy-result-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.1), 
+                transparent);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+        
+        .download-btn:hover, .copy-result-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(72, 219, 251, 0.4);
+            border-color: rgba(72, 219, 251, 0.6);
+        }
+        
+        .download-btn:hover::before, .copy-result-btn:hover::before {
+            left: 100%;
         }
         
         .copy-result-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(46, 204, 113, 0.2);
+            background: linear-gradient(135deg, 
+                rgba(46, 204, 113, 0.25) 0%, 
+                rgba(46, 204, 113, 0.45) 100%);
             color: #2ecc71;
-            padding: 12px 25px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(46, 204, 113, 0.5);
+            border: 1px solid rgba(46, 204, 113, 0.4);
             cursor: pointer;
         }
         
         .copy-result-btn:hover {
-            background: rgba(46, 204, 113, 0.4);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(46, 204, 113, 0.2);
+            box-shadow: 0 15px 35px rgba(46, 204, 113, 0.4);
+            border-color: rgba(46, 204, 113, 0.6);
         }
         
         .param-description {
-            font-size: 0.85rem;
-            color: #aaa;
-            line-height: 1.4;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: #bbb;
+            line-height: 1.6;
             font-style: italic;
             margin-top: 0;
-            padding-top: 10px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
             overflow-y: auto;
-            max-height: 120px;
+            max-height: 130px;
         }
         
         @keyframes fadeIn {
@@ -727,149 +1045,137 @@
                 transform: translateY(0);
             }
         }
-        
-        @media (max-width: 1600px) {
+
+        /* Медиа-запросы */
+        @media (max-width: 1800px) {
             .param-container {
                 grid-template-columns: repeat(4, 1fr);
             }
+            
+            .calculator {
+                max-width: 1600px;
+            }
         }
         
-        @media (max-width: 1300px) {
+        @media (max-width: 1400px) {
             .param-container {
                 grid-template-columns: repeat(3, 1fr);
             }
             
-            .telegram-buttons {
-                left: 15px;
-                bottom: 15px;
+            .calculator {
+                max-width: 1400px;
+                padding: 30px 35px;
+            }
+            
+            .telegram-section {
+                max-width: 1000px;
             }
             
             .tg-btn {
-                width: 55px;
-                height: 55px;
+                width: 65px;
+                height: 65px;
             }
         }
         
-        @media (max-width: 1000px) {
+        @media (max-width: 1100px) {
             .param-container {
                 grid-template-columns: repeat(2, 1fr);
             }
             
             .title {
-                font-size: 2.8rem;
+                font-size: 3.2rem;
             }
             
             .subtitle {
-                font-size: 1.2rem;
+                font-size: 1.4rem;
+                padding: 0 15px;
+            }
+            
+            .telegram-title {
+                font-size: 1.5rem;
             }
             
             .formula .katex {
-                font-size: 1.2rem !important;
+                font-size: 1.5rem !important;
             }
             
-            .telegram-buttons {
-                left: 10px;
-                bottom: 10px;
+            .telegram-section {
                 gap: 12px;
+                padding: 15px;
             }
             
             .tg-btn {
-                width: 50px;
-                height: 50px;
-            }
-            
-            .tg-btn::after {
-                font-size: 20px;
-            }
-            
-            .animated-title-container {
-                max-width: 700px;
-                height: 90px;
-            }
-            
-            .title-word {
-                font-size: 3rem;
+                width: 60px;
+                height: 60px;
             }
             
             .calculator {
-                padding: 25px;
+                padding: 25px 30px;
+                margin: 0 15px;
             }
             
             .param {
-                padding: 18px;
+                padding: 22px;
+                min-height: 300px;
             }
             
-            @keyframes slideWords {
-                0%, 40% {
-                    transform: translateX(120px);
-                }
-                50%, 90% {
-                    transform: translateX(-120px);
-                }
-                100% {
-                    transform: translateX(120px);
-                }
+            .download-btn, .copy-result-btn {
+                min-width: 240px;
+                padding: 16px 30px;
+            }
+            
+            .scale-container {
+                width: calc(100% - 60px);
             }
         }
         
         @media (max-width: 768px) {
             .param-container {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
             
             .calculator {
-                padding: 20px;
+                padding: 20px 25px;
+                margin: 10px;
+                border-radius: 15px;
+                max-width: 100%;
             }
             
             .interpretation {
-                font-size: 1.4rem;
-                padding: 15px;
+                font-size: 1.6rem;
+                padding: 20px;
+                min-height: 90px;
+                margin-top: 30px;
             }
             
             .formula {
-                padding: 20px;
+                padding: 25px;
                 margin: 20px 0 40px 0;
             }
             
             .formula .katex {
-                font-size: 1rem !important;
+                font-size: 1.3rem !important;
             }
             
             .indicator-label {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
+                padding: 6px 16px;
+                min-width: 120px;
+                height: 40px;
             }
             
             .param-header {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 10px;
+                gap: 12px;
+                margin-bottom: 15px;
             }
             
             .param-controls {
                 width: 100%;
                 flex-direction: column;
-                gap: 15px;
-            }
-            
-            .telegram-buttons {
-                left: 8px;
-                bottom: 8px;
-                gap: 10px;
-            }
-            
-            .tg-btn {
-                width: 45px;
-                height: 45px;
-            }
-            
-            .tg-btn::after {
-                font-size: 18px;
-            }
-            
-            .download-link {
-                flex-wrap: nowrap !important;
-                min-height: 60px !important;
-                gap: 10px;
+                gap: 18px;
             }
             
             .input-with-arrows {
@@ -881,24 +1187,146 @@
                 justify-content: space-between;
             }
             
+            .input-arrow-group .number-input {
+                width: 100%;
+                max-width: 120px;
+            }
+            
             .slider-container {
-                margin: 10px 0;
+                margin: 20px 0 25px 0;
+            }
+            
+            .download-link {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+            }
+            
+            .download-btn, .copy-result-btn {
+                width: 100%;
+                max-width: 320px;
+                min-width: unset;
+                justify-content: center;
+            }
+            
+            .telegram-section {
+                gap: 10px;
+                padding: 12px;
+                margin: 30px auto 15px;
+            }
+            
+            .telegram-title {
+                font-size: 1.3rem;
+            }
+            
+            .tg-btn {
+                width: 55px;
+                height: 55px;
+            }
+            
+            .title {
+                font-size: 2.8rem;
+                padding: 0 10px;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+                padding: 0 10px;
+            }
+            
+            .scale-container {
+                width: calc(100% - 50px);
+                padding: 30px 0;
+            }
+            
+            .slider::-webkit-slider-thumb {
+                width: 16px;
+                height: 16px;
+            }
+            
+            .slider::-moz-range-thumb {
+                width: 16px;
+                height: 16px;
+            }
+            
+            .param-description {
+                padding-top: 15px;
+                max-height: 110px;
             }
         }
         
         @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 10px;
+                gap: 25px;
+            }
+            
             .title {
-                font-size: 2rem;
+                font-size: 2.3rem;
             }
             
-            .slider-container {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
+            .subtitle {
+                font-size: 1.1rem;
+                line-height: 1.5;
             }
             
-            .slider {
+            .calculator {
+                padding: 18px 20px;
+                margin: 5px;
+            }
+            
+            .formula {
+                padding: 20px;
+                margin: 15px 0 30px 0;
+            }
+            
+            .formula .katex {
+                font-size: 1.1rem !important;
+            }
+            
+            .param {
+                padding: 20px;
+                min-height: 280px;
+            }
+            
+            .param-name {
+                font-size: 1.1rem;
+            }
+            
+            .input-arrow-group .number-input {
                 width: 100%;
+                max-width: 110px;
+                height: 32px;
+                font-size: 1rem;
+                padding: 6px 8px;
+            }
+            
+            .scale-container {
+                width: calc(100% - 40px);
+                padding: 25px 0;
+            }
+            
+            .interpretation {
+                font-size: 1.4rem;
+                padding: 18px;
+                min-height: 80px;
+            }
+            
+            .download-btn, .copy-result-btn {
+                padding: 15px 25px;
+                font-size: 1rem;
+                max-width: 100%;
+                min-width: unset;
+            }
+            
+            .param-description {
+                font-size: 0.9rem;
+                max-height: 100px;
+                padding-top: 12px;
             }
             
             .marker {
@@ -910,223 +1338,131 @@
                 font-size: 0.7rem;
             }
             
-            .formula .katex {
-                font-size: 0.9rem !important;
-            }
-            
-            .telegram-buttons {
-                left: 5px;
-                bottom: 5px;
+            .telegram-section {
                 gap: 8px;
+                padding: 10px;
+                margin: 25px auto 10px;
             }
             
-            .tg-btn {
-                width: 40px;
-                height: 40px;
-            }
-            
-            .tg-btn::after {
-                font-size: 16px;
-            }
-            
-            .param-controls {
-                gap: 10px;
-            }
-            
-            .input-arrow-group .number-input {
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .warning-alert, .success-alert {
-                width: 90%;
-                font-size: 0.9rem;
-                padding: 12px 20px;
-                flex-direction: column;
-                text-align: center;
-                gap: 8px;
-            }
-            
-            .warning-alert i, .success-alert i {
+            .telegram-title {
                 font-size: 1.2rem;
             }
             
-            .animated-title-container {
-                height: 80px;
+            .tg-btn {
+                width: 50px;
+                height: 50px;
             }
             
-            .title-word {
-                font-size: 2.5rem;
+            .slider::-webkit-slider-thumb {
+                width: 14px;
+                height: 14px;
             }
             
-            @keyframes slideWords {
-                0%, 40% {
-                    transform: translateX(100px);
-                }
-                50%, 90% {
-                    transform: translateX(-100px);
-                }
-                100% {
-                    transform: translateX(100px);
-                }
+            .slider::-moz-range-thumb {
+                width: 14px;
+                height: 14px;
             }
         }
         
-        @media (max-width: 480px) {
-            .animated-title-container {
-                height: 60px;
+        @media (max-width: 360px) {
+            .title {
+                font-size: 2rem;
             }
             
-            .title-word {
-                font-size: 1.8rem;
+            .subtitle {
+                font-size: 1rem;
             }
             
-            .animated-title-track {
-                gap: 20px;
+            .formula {
+                padding: 15px;
+                margin: 12px 0 25px 0;
             }
             
-            @keyframes slideWords {
-                0%, 40% {
-                    transform: translateX(70px);
-                }
-                50%, 90% {
-                    transform: translateX(-70px);
-                }
-                100% {
-                    transform: translateX(70px);
-                }
+            .formula .katex {
+                font-size: 1rem !important;
             }
             
-            body {
-                padding: 10px;
+            .param {
+                padding: 18px;
+                min-height: 260px;
             }
             
+            .input-arrow-group .number-input {
+                max-width: 90px;
+                font-size: 0.95rem;
+                height: 30px;
+            }
+            
+            .interpretation {
+                font-size: 1.2rem;
+                padding: 15px;
+                min-height: 70px;
+            }
+            
+            .download-btn, .copy-result-btn {
+                padding: 12px 20px;
+                font-size: 0.95rem;
+            }
+            
+            .telegram-section {
+                gap: 6px;
+                padding: 8px;
+            }
+            
+            .telegram-title {
+                font-size: 1.1rem;
+            }
+            
+            .tg-btn {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .scale-container {
+                width: calc(100% - 30px);
+            }
+            
+            .slider::-webkit-slider-thumb {
+                width: 12px;
+                height: 12px;
+            }
+            
+            .slider::-moz-range-thumb {
+                width: 12px;
+                height: 12px;
+            }
+            
+            .param-description {
+                font-size: 0.85rem;
+                max-height: 90px;
+            }
+        }
+        
+        /* Горизонтальная ориентация */
+        @media (max-height: 600px) and (orientation: landscape) {
             .container {
                 gap: 20px;
-                padding: 10px;
             }
             
             .header {
                 margin-bottom: 20px;
             }
             
-            .subtitle {
-                font-size: 1rem;
-                padding: 0 10px;
+            .param-container {
+                grid-template-columns: repeat(2, 1fr);
+                margin-bottom: 40px;
             }
             
             .param {
-                padding: 15px;
-                min-height: 250px;
-            }
-            
-            .param-name {
-                font-size: 1rem;
-            }
-            
-            .input-with-arrows {
-                width: 100%;
-            }
-            
-            .input-arrow-group .number-input {
-                width: 80px;
-                height: 28px;
-                font-size: 0.9rem;
-                padding: 8px;
-            }
-            
-            .input-label {
-                font-size: 0.75rem;
+                min-height: 240px;
             }
             
             .scale-container {
-                padding: 30px 0;
-            }
-            
-            .scale {
-                margin-bottom: 50px;
-            }
-            
-            .interpretation {
-                font-size: 1.2rem;
-                padding: 12px;
-                min-height: 80px;
-            }
-            
-            .download-btn, .copy-result-btn {
-                padding: 10px 20px;
-                font-size: 0.9rem;
-            }
-            
-            .param-description {
-                font-size: 0.8rem;
-                max-height: 100px;
-            }
-        }
-        
-        @media (max-width: 360px) {
-            .title {
-                font-size: 1.6rem;
-            }
-            
-            .title-word {
-                font-size: 1.5rem;
-            }
-            
-            .animated-title-container {
-                height: 50px;
-            }
-            
-            .subtitle {
-                font-size: 0.9rem;
-            }
-            
-            .formula {
-                padding: 15px;
-                margin: 15px 0 30px 0;
+                padding: 20px 0;
             }
             
             .formula .katex {
-                font-size: 0.8rem !important;
-            }
-            
-            .param {
-                padding: 12px;
-            }
-            
-            .input-arrow-group .number-input {
-                width: 70px;
-                font-size: 0.85rem;
-            }
-            
-            .marker {
-                font-size: 1rem;
-            }
-            
-            .marker-value {
-                font-size: 0.65rem;
-            }
-            
-            .interpretation {
-                font-size: 1rem;
-            }
-            
-            .download-btn, .copy-result-btn {
-                padding: 8px 16px;
-                font-size: 0.85rem;
-            }
-            
-            @keyframes slideWords {
-                0%, 40% {
-                    transform: translateX(50px);
-                }
-                50%, 90% {
-                    transform: translateX(-50px);
-                }
-                100% {
-                    transform: translateX(50px);
-                }
+                font-size: 1.3rem !important;
             }
         }
         
@@ -1175,14 +1511,16 @@
         }
         
         .title-word {
-            font-size: 3.5rem;
-            font-weight: bold;
+            font-family: 'Manrope', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 800;
             letter-spacing: 1px;
             flex-shrink: 0;
             transition: all 0.5s ease;
             filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4));
             white-space: nowrap;
             opacity: 0.3;
+            text-transform: uppercase;
         }
         
         .title-word:nth-child(1) {
@@ -1244,15 +1582,110 @@
                 opacity: 0.3;
             }
         }
-    }
+
+        /* Адаптивные анимации заголовка */
+        @media (max-width: 1100px) {
+            .animated-title-container {
+                height: 80px;
+            }
+            
+            .title-word {
+                font-size: 3rem;
+            }
+            
+            @keyframes slideWords {
+                0%, 40% {
+                    transform: translateX(120px);
+                }
+                50%, 90% {
+                    transform: translateX(-120px);
+                }
+                100% {
+                    transform: translateX(120px);
+                }
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .animated-title-container {
+                height: 70px;
+            }
+            
+            .title-word {
+                font-size: 2.5rem;
+            }
+            
+            @keyframes slideWords {
+                0%, 40% {
+                    transform: translateX(90px);
+                }
+                50%, 90% {
+                    transform: translateX(-90px);
+                }
+                100% {
+                    transform: translateX(90px);
+                }
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .animated-title-container {
+                height: 60px;
+                margin-bottom: 20px;
+            }
+            
+            .title-word {
+                font-size: 2rem;
+            }
+            
+            .animated-title-track {
+                gap: 20px;
+            }
+            
+            @keyframes slideWords {
+                0%, 40% {
+                    transform: translateX(70px);
+                }
+                50%, 90% {
+                    transform: translateX(-70px);
+                }
+                100% {
+                    transform: translateX(70px);
+                }
+            }
+        }
+        
+        /* Мобильная оптимизация */
+        .mobile-optimized {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        
+        input, button, a, .tg-btn {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Алёрты */
+        @media (max-width: 768px) {
+            .warning-alert, .success-alert {
+                width: 90%;
+                font-size: 0.9rem;
+                padding: 12px 20px;
+                flex-direction: column;
+                text-align: center;
+                gap: 8px;
+                top: 10px;
+            }
+            
+            .warning-alert i, .success-alert i {
+                font-size: 1.2rem;
+            }
+        }
     </style>
 </head>
-<body>
-    <div class="telegram-buttons">
-        <a href="https://t.me/hatingleft_m" target="_blank" class="tg-btn tg-btn-1" title="Hating Left"></a>
-        <a href="https://t.me/ebuchie_degeneraty" target="_blank" class="tg-btn tg-btn-2" title="Ebuchiе Degeneraty"></a>
-        <a href="https://t.me/vstvmedia" target="_blank" class="tg-btn tg-btn-3" title="VSTV Media"></a>
-    </div>
+<body class="mobile-optimized">
+    <!-- Динамические частицы -->
+    <div class="particles" id="particles"></div>
     
     <div class="container">
         <div class="header">
@@ -1270,7 +1703,12 @@
         
         <div class="calculator">
             <div class="formula" id="formula">
-                <!-- Формула будет отрендерена KaTeX -->
+                <!-- Блик на формуле -->
+                <div class="formula-highlight"></div>
+                <!-- Контейнер для формулы -->
+                <div class="formula-container">
+                    <!-- Формула будет отрендерена KaTeX -->
+                </div>
             </div>
             
             <div class="param-container" id="params-container">
@@ -1305,7 +1743,7 @@
             </div>
         </div>
         
-        <div class="download-link" justify-content: center; align-items: center;>
+        <div class="download-link">
             <a href="Tusinskaya_Amanitova_Cherepov_Index_WS_2026.pdf" class="download-btn" download>
                 <i class="fas fa-download"></i> Скачать оригинальную работу (PDF)
             </a>
@@ -1315,49 +1753,68 @@
         </div>
     </div>
 
+    <!-- Телеграм-кнопки с заголовком -->
+    <div class="telegram-section">
+        <h3 class="telegram-title">Подписаться на авторов</h3>
+        <div class="telegram-buttons">
+            <a href="https://t.me/hatingleft_m" target="_blank" class="tg-btn tg-btn-1" title="Hating Left"></a>
+            <a href="https://t.me/ebuchie_degeneraty" target="_blank" class="tg-btn tg-btn-2" title="Ebuchiе Degeneraty"></a>
+            <a href="https://t.me/vstvmedia" target="_blank" class="tg-btn tg-btn-3" title="VSTV Media"></a>
+        </div>
+    </div>
+
     <!-- KaTeX для рендеринга формул -->
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <script>
-        // Алфавит для base62 кодирования (a-zA-Z0-9)
-        const BASE62_ALPHABET = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-        
-        function encodeBase62(num) {
-            if (num === 0) return '0';
-            let result = '';
-            while (num > 0) {
-                result = BASE62_ALPHABET[num % 62] + result;
-                num = Math.floor(num / 62);
+        // Создание динамических частиц
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Случайный размер от 1 до 5px
+                const size = Math.random() * 4 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Случайная начальная позиция
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.top = `${Math.random() * 100}vh`;
+                
+                // Случайная задержка анимации
+                particle.style.animationDelay = `${Math.random() * 20}s`;
+                
+                // Случайная продолжительность анимации
+                const duration = 15 + Math.random() * 15;
+                particle.style.animationDuration = `${duration}s`;
+                
+                particlesContainer.appendChild(particle);
             }
-            return result;
         }
         
-        function decodeBase62(str) {
-            let result = 0;
-            for (let i = 0; i < str.length; i++) {
-                const char = str[i];
-                const value = BASE62_ALPHABET.indexOf(char);
-                if (value === -1) throw new Error('Недопустимый символ в base62 строке');
-                result = result * 62 + value;
-            }
-            return result;
-        }
+        // Инициализация частиц
+        createParticles();
         
-        // Данные параметров из PDF
-        const parameters = [
+            const parameters = [
             {
                 id: "svo",
                 name: "Проведено СВО",
                 description: "Количество вторжений/оккупаций под благовидными предлогами за последние 30 лет. Показатель имперского зуда.",
                 weight: 0.15,
                 max: 10,
+                unit: "интерв./30 лет",
                 value: 0
             },
             {
                 id: "goida",
-                name: "Кинуто гойды",
+                name: "Плотность гойды",
                 description: "Мера политического влияния турбопатриотических сил. Шкала: 0 (политика ещё о чём-то), 1 (есть маргинальные клоуны), 2 (клоуны у руля).",
                 weight: 0.10,
                 max: 2,
+                unit: "баллы",
                 value: 0
             },
             {
@@ -1366,6 +1823,7 @@
                 description: "Количество медийно канонизированных мучеников, используемых для обоснования текущей политики.",
                 weight: 0.10,
                 max: 20,
+                unit: "мучеников",
                 value: 0
             },
             {
@@ -1373,7 +1831,8 @@
                 name: "Подарено цветов полицаям",
                 description: "Ритуальные подношения цветов сотрудникам правонарушительных органов. Демонстрирует глубину стокгольмского синдрома.",
                 weight: 0.05,
-                max: 5,
+                max: 100,
+                unit: "голов./чел-год",
                 value: 0
             },
             {
@@ -1382,6 +1841,7 @@
                 description: "Скорость генерации агрессивного, безграмотного и предсказуемого бреда в комментариях националных пабликов.",
                 weight: 0.05,
                 max: 10000,
+                unit: "комм./пост-ч",
                 value: 0
             },
             {
@@ -1390,6 +1850,7 @@
                 description: "Средний заработок популярного стендап-комика. Высокий гонорар указывает на массовое одобрение ксенофобии.",
                 weight: 0.05,
                 max: 1000000,
+                unit: "ед.вал./выст.",
                 value: 0
             },
             {
@@ -1398,6 +1859,7 @@
                 description: "Оценка распространённости пищевых практик, моделирующих социальную иерархию и покорность.",
                 weight: 0.15,
                 max: 100,
+                unit: "потребл./чел-год",
                 value: 0
             },
             {
@@ -1406,6 +1868,7 @@
                 description: "Степень увлечения идеями радикального индивидуализма и социального дарвинизма.",
                 weight: 0.15,
                 max: 100,
+                unit: "проявл./год",
                 value: 0
             },
             {
@@ -1413,7 +1876,8 @@
                 name: "Перевоспитано Гитлеров",
                 description: "Средняя оценка мультсериала Steven Universe в стране. Показатель инфантильности и тяги к примитивным моральным пазлам.",
                 weight: 0.15,
-                max: 100,
+                max: 10,
+                unit: "баллы",
                 value: 0
             },
             {
@@ -1422,17 +1886,18 @@
                 description: "Количество снятой обуви при вставании на лавочки. Свидетельствует о патологически раболепной форме протеста.",
                 weight: 0.05,
                 max: 1000,
+                unit: "актов/год",
                 value: 0
             }
         ];
 
         const interpretations = [
-            { min: 900, max: 1000, text: "Идеальный/почти идеальный народ", className: "good" },
-            { min: 700, max: 900, text: "Хороший народ, безусловно стоит спасать", className: "good" },
-            { min: 500, max: 700, text: "Удовлетворительный народ, можно спасать при наличии сырья и кадров", className: "ok" },
-            { min: 300, max: 500, text: "Проблемный народ, спасение затруднительно, но возможно", className: "ok" },
-            { min: 100, max: 300, text: "Плохой народ, спасать не рекомендуется", className: "bad" },
-            { min: 0, max: 100, text: "Катастрофический народ, не стоит спасать", className: "bad" }
+            { min: 900, max: 1000, text: "ИДЕАЛЬНЫЙ/ПОЧТИ ИДЕАЛЬНЫЙ НАРОД", className: "good" },
+            { min: 700, max: 900, text: "ХОРОШИЙ НАРОД, БЕЗУСЛОВНО СТОИТ СПАСАТЬ", className: "good" },
+            { min: 500, max: 700, text: "УДОВЛЕТВОРИТЕЛЬНЫЙ НАРОД, МОЖНО СПАСАТЬ ПРИ НАЛИЧИИ СЫРЬЯ И КАДРОВ", className: "ok" },
+            { min: 300, max: 500, text: "ПРОБЛЕМНЫЙ НАРОД, СПАСЕНИЕ ЗАТРУДНИТЕЛЬНО, НО ВОЗМОЖНО", className: "ok" },
+            { min: 100, max: 300, text: "ПЛОХОЙ НАРОД, СПАСАТЬ НЕ РЕКОМЕНДУЕТСЯ", className: "bad" },
+            { min: 0, max: 100, text: "КАТАСТРОФИЧЕСКИЙ НАРОД, НЕ СТОИТ СПАСАТЬ", className: "bad" }
         ];
 
         const emojiPositions = [
@@ -1446,31 +1911,39 @@
         ];
 
         let currentNLS = 1000;
+        let lastWsValue = 1000;
+        let activeSliders = new Set();
+        
+        function logisticFunction(norm) {
+            // Логистическая функция с центром в 0.5 и крутизной 10
+            // f(x) = 1 / (1 + e^(k*(x - c)))
+            // где k - крутизна, c - центр
+            const k = 10; // крутизна - регулирует скорость спада
+            const c = 0.5; // центр функции
+            
+            return 1 / (1 + Math.exp(k * (norm - c)));
+        }
 
         function renderFormula() {
             const formulaElement = document.getElementById('formula');
+            const formulaContainer = formulaElement.querySelector('.formula-container');
             
             const formula = String.raw`
-                \text{WS}(P, t) = 1000 \cdot \exp\left(-\|\mathbf{x}\|_{W}\right), \quad 
+                \text{WS}(P, t) = 1000 \cdot \frac{1}{1 + e^{10(\|\mathbf{x}\|_{W} - 0.5)}}, \quad 
                 \|\mathbf{x}\|_{W} = \sqrt{\sum_{i=1}^{n} w_i \cdot x_i^2}
             `;
-            
-            const formulaContainer = document.createElement('div');
-            formulaContainer.style.width = '100%';
             
             katex.render(formula, formulaContainer, {
                 displayMode: true,
                 throwOnError: false,
                 fleqn: false,
-                output: 'html'
+                output: 'html',
+                trust: true
             });
-            
-            formulaElement.innerHTML = '';
-            formulaElement.appendChild(formulaContainer);
             
             const description = document.createElement('div');
             description.className = 'formula-description';
-            description.innerHTML = 'где <span style="color:#feca57">w<sub>i</sub></span> — вес параметра, <span style="color:#48dbfb">x<sub>i</sub></span> — нормализованное значение параметра';
+            description.innerHTML = 'где <span style="color:#feca57; text-shadow: 0 0 10px rgba(254, 202, 87, 0.4);">w<sub>i</sub></span> — зафиксированный вес параметра, <span style="color:#48dbfb; text-shadow: 0 0 10px rgba(72, 219, 251, 0.4);">x<sub>i</sub></span> — нормализованное значение параметра';
             formulaElement.appendChild(description);
         }
 
@@ -1498,7 +1971,7 @@
                 marker.className = 'marker';
                 marker.style.left = `${pos.position}%`;
                 marker.innerHTML = `
-                    <div>${pos.emoji}</div>
+                    <div style="filter: drop-shadow(0 0 5px rgba(255,255,255,0.4));">${pos.emoji}</div>
                     <div class="marker-value">${pos.value}</div>
                 `;
                 markersContainer.appendChild(marker);
@@ -1518,19 +1991,10 @@
                         </div>
                         <div class="param-controls">
                             <div class="input-with-arrows">
-                                <div class="input-label"><i>Вес (0-1)</i></div>
-                                <div class="input-arrow-group">
-                                    <input type="number" step="0.01" min="0" max="1" value="${param.weight}" 
-                                           class="number-input weight-input" id="weight-${param.id}" 
-                                           data-id="${param.id}" title="Вес параметра (0-1)">
-                                    <div class="input-arrows">
-                                        <button type="button" class="arrow-btn arrow-up" data-for="weight-${param.id}" data-step="0.01">▲</button>
-                                        <button type="button" class="arrow-btn arrow-down" data-for="weight-${param.id}" data-step="0.01">▼</button>
-                                    </div>
+                                <div class="input-label-row">
+                                    <div class="input-label"><i>Значение (0-${param.max})<br>${param.unit}</i></div>
+                                    <div class="param-weight">вес: ${param.weight.toFixed(2)}</div>
                                 </div>
-                            </div>
-                            <div class="input-with-arrows">
-                                <div class="input-label"><i>Значение (0-${param.max})</i></div>
                                 <div class="input-arrow-group">
                                     <input type="number" min="0" max="${param.max}" value="${param.value}" 
                                            class="number-input value-input" id="input-${param.id}" 
@@ -1557,12 +2021,48 @@
             parameters.forEach(param => {
                 const slider = document.getElementById(`slider-${param.id}`);
                 const input = document.getElementById(`input-${param.id}`);
-                const weightInput = document.getElementById(`weight-${param.id}`);
+                
+                const addVibration = () => {
+                    if (navigator.vibrate && window.innerWidth <= 768) {
+                        navigator.vibrate(10);
+                    }
+                };
+                
+                // Обработчики для активации/деактивации слайдера
+                slider.addEventListener('mousedown', function() {
+                    activeSliders.add(this.id);
+                    this.classList.add('active');
+                });
+                
+                slider.addEventListener('touchstart', function() {
+                    activeSliders.add(this.id);
+                    this.classList.add('active');
+                });
+                
+                slider.addEventListener('mouseup', function() {
+                    activeSliders.delete(this.id);
+                    if (activeSliders.size === 0) {
+                        this.classList.remove('active');
+                    }
+                });
+                
+                slider.addEventListener('touchend', function() {
+                    activeSliders.delete(this.id);
+                    if (activeSliders.size === 0) {
+                        this.classList.remove('active');
+                    }
+                });
                 
                 slider.addEventListener('input', function() {
                     input.value = this.value;
-                    updateParameter(param.id, parseFloat(this.value), param.weight);
+                    updateParameter(param.id, parseFloat(this.value));
                     calculateWS();
+                    addVibration();
+                    
+                    // Подсветка слайдера остается активной
+                    if (!this.classList.contains('active')) {
+                        this.classList.add('active');
+                    }
                 });
                 
                 input.addEventListener('input', function() {
@@ -1573,19 +2073,9 @@
                     
                     this.value = value;
                     slider.value = value;
-                    updateParameter(param.id, value, param.weight);
+                    updateParameter(param.id, value);
                     calculateWS();
-                });
-                
-                weightInput.addEventListener('input', function() {
-                    let weight = parseFloat(this.value);
-                    if (isNaN(weight)) weight = 0;
-                    if (weight < 0) weight = 0;
-                    if (weight > 1) weight = 1;
-                    
-                    this.value = weight;
-                    updateParameter(param.id, param.value, weight);
-                    calculateWS();
+                    addVibration();
                 });
                 
                 // Обработчики для кастомных стрелок
@@ -1605,47 +2095,31 @@
                         
                         input.value = currentValue;
                         slider.value = currentValue;
-                        updateParameter(param.id, currentValue, param.weight);
+                        updateParameter(param.id, currentValue);
                         calculateWS();
+                        addVibration();
+                        
+                        this.style.transform = 'scale(0.9)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 150);
                     });
                 });
                 
-                // Обработчики для кастомных стрелок веса
-                document.querySelectorAll(`.arrow-btn[data-for="weight-${param.id}"]`).forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const step = parseFloat(this.getAttribute('data-step'));
-                        const isUp = this.classList.contains('arrow-up');
-                        let currentWeight = parseFloat(weightInput.value) || 0;
-                        
-                        if (isUp) {
-                            currentWeight += step;
-                            if (currentWeight > 1) currentWeight = 1;
-                        } else {
-                            currentWeight -= step;
-                            if (currentWeight < 0) currentWeight = 0;
-                        }
-                        
-                        // Округляем до 2 знаков после запятой
-                        currentWeight = Math.round(currentWeight * 100) / 100;
-                        
-                        weightInput.value = currentWeight;
-                        updateParameter(param.id, param.value, currentWeight);
-                        calculateWS();
-                    });
+                // Эффект при фокусе на мобильных
+                input.addEventListener('focus', function() {
+                    if (window.innerWidth <= 768) {
+                        this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
                 });
             });
         }
 
-        function updateParameter(id, value, weight = null) {
+        function updateParameter(id, value) {
             const param = parameters.find(p => p.id === id);
             if (param) {
                 param.value = value;
-                if (weight !== null) {
-                    param.weight = weight;
-                }
             }
-            
-            validateWeights();
         }
 
         function calculateWS() {
@@ -1658,12 +2132,21 @@
             
             const norm = Math.sqrt(weightedNorm);
             
-            const ws = 1000 * Math.exp(-norm);
+            // Используем логистическую функцию
+            const ws = 1000 * logisticFunction(norm);
             
+            if (Math.abs(ws - lastWsValue) > 50) {
+                const indicator = document.getElementById('indicator');
+                indicator.style.transform = `translateX(-50%) scale(1.1)`;
+                setTimeout(() => {
+                    indicator.style.transform = `translateX(-50%) scale(1)`;
+                }, 300);
+            }
+            
+            lastWsValue = ws;
             currentNLS = ws;
             
             updateIndicator(ws);
-            
             updateInterpretation(ws);
             
             return ws;
@@ -1679,7 +2162,6 @@
             if (position > 100) position = 100;
             
             indicator.style.left = `${position}%`;
-            
             indicatorLabel.textContent = `WS = ${Math.round(ws)}`;
             
             let color;
@@ -1704,6 +2186,12 @@
             
             triangle.style.color = color;
             indicatorLabel.style.color = color;
+            indicatorLabel.style.background = `rgba(${parseInt(color.slice(1,3), 16)}, ${parseInt(color.slice(3,5), 16)}, ${parseInt(color.slice(5,7), 16)}, 0.2)`;
+            
+            indicatorLabel.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                indicatorLabel.style.transform = 'scale(1)';
+            }, 200);
         }
 
         function interpolateColor(color1, color2, factor) {
@@ -1732,18 +2220,19 @@
 
         function updateInterpretation(ws) {
             const interpretationEl = document.getElementById('interpretation');
-            
             const interpretation = interpretations.find(item => ws >= item.min && ws <= item.max);
             
             if (interpretation) {
-                interpretationEl.textContent = interpretation.text;
-                interpretationEl.className = 'interpretation ' + interpretation.className;
+                interpretationEl.style.opacity = '0.5';
+                interpretationEl.style.transform = 'translateY(10px)';
+                
+                setTimeout(() => {
+                    interpretationEl.textContent = interpretation.text;
+                    interpretationEl.className = 'interpretation ' + interpretation.className;
+                    interpretationEl.style.opacity = '1';
+                    interpretationEl.style.transform = 'translateY(0)';
+                }, 300);
             }
-        }
-        
-        function getInterpretationText(ws) {
-            const interpretation = interpretations.find(item => ws >= item.min && ws <= item.max);
-            return interpretation ? interpretation.text : "";
         }
         
         function shouldRescue(ws) {
@@ -1753,7 +2242,6 @@
         function initRandomValues() {
             parameters.forEach(param => {
                 const randomValue = Math.floor(Math.random() * (param.max * 0.3));
-                
                 const slider = document.getElementById(`slider-${param.id}`);
                 const input = document.getElementById(`input-${param.id}`);
                 
@@ -1765,81 +2253,35 @@
             calculateWS();
         }
 
-        function validateWeights() {
-            let totalWeight = parameters.reduce((sum, param) => sum + param.weight, 0);
-            
-            if (totalWeight > 1) {
-                showWeightWarning();
-                
-                calculateWS();
-                
-                return false;
-            }
-            
-            return true;
-        }
-
-        function showWeightWarning() {
-            const warning = document.getElementById('weight-warning');
-            
-            warning.classList.remove('show', 'shake');
-            
-            setTimeout(() => {
-                warning.classList.add('show', 'shake');
-                
-                setTimeout(() => {
-                    warning.classList.remove('show', 'shake');
-                }, 3000);
-            }, 10);
-        }
-        
         function showSuccessAlert() {
             const success = document.getElementById('success-alert');
-            
             success.classList.remove('show');
             
             setTimeout(() => {
                 success.classList.add('show');
-                
                 setTimeout(() => {
                     success.classList.remove('show');
                 }, 3000);
             }, 10);
         }
         
-        // Кодирование параметров с переменной точностью
         function encodeParameters() {
             let encodedParts = [];
-            
             parameters.forEach((param, index) => {
-                // Для значений используем 12 бит (0-4095) для лучшей точности
+                // Кодируем только значения, веса зафиксированы
                 const scaledValue = Math.round((param.value / param.max) * 4095);
-                
-                // Для весов используем 8 бит (0-255) - точность до 0.004
-                const scaledWeight = Math.round(param.weight * 255);
-                
-                // Упаковываем в 20 бит (12 + 8)
-                const packed = (scaledValue << 8) | scaledWeight;
-                
-                // Кодируем в base62 (3-4 символа)
-                let encoded = encodeBase62(packed);
-                
-                // Для единообразия добавляем префикс с количеством символов
-                // Это позволяет использовать разную длину для разных значений
+                let encoded = encodeBase62(scaledValue);
                 encodedParts.push(encoded.length.toString(36) + encoded);
             });
-            
             return encodedParts.join('');
         }
         
-        // Декодирование параметров с переменной длиной
         function decodeParameters(encodedString) {
             try {
                 let pos = 0;
                 let paramIndex = 0;
                 
                 while (pos < encodedString.length && paramIndex < parameters.length) {
-                    // Читаем длину закодированного параметра (в base36)
                     const lengthChar = encodedString[pos];
                     const partLength = parseInt(lengthChar, 36);
                     
@@ -1847,31 +2289,19 @@
                         throw new Error('Некорректная длина параметра');
                     }
                     
-                    // Извлекаем закодированную часть
                     const part = encodedString.substr(pos + 1, partLength);
                     if (part.length !== partLength) {
                         throw new Error('Недостаточно данных для параметра');
                     }
                     
-                    const packed = decodeBase62(part);
-                    
-                    // Извлекаем значение и вес
-                    const scaledWeight = packed & 0xFF; // Младшие 8 бит
-                    const scaledValue = (packed >> 8) & 0xFFF; // Следующие 12 бит
-                    
-                    // Восстанавливаем значения с улучшенной точностью
-                    parameters[paramIndex].weight = scaledWeight / 255;
+                    const scaledValue = decodeBase62(part);
                     parameters[paramIndex].value = (scaledValue / 4095) * parameters[paramIndex].max;
-                    
-                    // Округляем для отображения (но храним точные значения для расчетов)
-                    parameters[paramIndex].weight = parseFloat(parameters[paramIndex].weight.toFixed(4));
                     parameters[paramIndex].value = Math.round(parameters[paramIndex].value);
                     
                     pos += 1 + partLength;
                     paramIndex++;
                 }
                 
-                // Проверяем, что все параметры были декодированы
                 if (paramIndex !== parameters.length) {
                     throw new Error('Не все параметры были декодированы');
                 }
@@ -1895,7 +2325,6 @@
                     console.error('Не удалось декодировать параметры из URL');
                 }
             }
-            
             return false;
         }
         
@@ -1903,13 +2332,9 @@
             parameters.forEach((param, index) => {
                 const slider = document.getElementById(`slider-${param.id}`);
                 const input = document.getElementById(`input-${param.id}`);
-                const weightInput = document.getElementById(`weight-${param.id}`);
                 
                 if (slider) slider.value = param.value;
                 if (input) input.value = param.value;
-                if (weightInput) {
-                    weightInput.value = param.weight.toFixed(2);
-                }
             });
             
             calculateWS();
@@ -1919,9 +2344,17 @@
             try {
                 await navigator.clipboard.writeText(text);
                 showSuccessAlert();
+                
+                const copyBtn = document.getElementById('copy-result');
+                copyBtn.style.transform = 'scale(0.95)';
+                copyBtn.style.background = 'linear-gradient(135deg, rgba(46, 204, 113, 0.6), rgba(46, 204, 113, 0.8))';
+                setTimeout(() => {
+                    copyBtn.style.transform = '';
+                    copyBtn.style.background = '';
+                }, 300);
+                
                 return true;
             } catch (err) {
-                // Fallback для старых браузеров
                 const textArea = document.createElement('textarea');
                 textArea.value = text;
                 textArea.style.position = 'fixed';
@@ -1951,13 +2384,35 @@
                 const ws = Math.round(currentNLS);
                 const rescueStatus = shouldRescue(ws);
                 const encodedString = encodeParameters();
-                
                 const shareUrl = window.location.href.split('#')[0] + `#s=${encodedString}`;
-                
                 const shareText = `WS-индекс: ${ws}! Ваш народ ${rescueStatus} спасать. ${shareUrl}`;
                 
                 await copyToClipboard(shareText);
             });
+        }
+
+        // Вспомогательные функции для кодирования
+        const BASE62_ALPHABET = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        
+        function encodeBase62(num) {
+            if (num === 0) return '0';
+            let result = '';
+            while (num > 0) {
+                result = BASE62_ALPHABET[num % 62] + result;
+                num = Math.floor(num / 62);
+            }
+            return result;
+        }
+        
+        function decodeBase62(str) {
+            let result = 0;
+            for (let i = 0; i < str.length; i++) {
+                const char = str[i];
+                const value = BASE62_ALPHABET.indexOf(char);
+                if (value === -1) throw new Error('Недопустимый символ в base62 строке');
+                result = result * 62 + value;
+            }
+            return result;
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -1971,15 +2426,25 @@
             }
             
             setupShareButton();
-            enhanceTitleAnimation();
+            
+            if (window.innerWidth <= 768) {
+                document.body.classList.add('mobile-optimized');
+                
+                document.querySelectorAll('input, select, textarea').forEach(el => {
+                    el.addEventListener('focus', function() {
+                        setTimeout(() => {
+                            this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 300);
+                    });
+                });
+            }
+            
+            setTimeout(() => {
+                document.querySelector('.calculator').style.opacity = '1';
+            }, 500);
         });
     </script>
 
-    <div class="warning-alert" id="weight-warning">
-        <i class="fas fa-exclamation-triangle"></i>
-        <span>Сумма весов превышает 1! Результат будет расходиться с оригинальной моделью.</span>
-    </div>
-    
     <div class="success-alert" id="success-alert">
         <i class="fas fa-check-circle"></i>
         <span>Ссылка скопирована в буфер обмена!</span>
