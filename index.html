@@ -6,7 +6,9 @@
     <title>Стоит ли спасать этот народ?</title>
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Профессиональные шрифты без засечек -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@300;400;500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- KaTeX для рендеринга формул -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <style>
         * {
@@ -16,6 +18,7 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
         }
         
+        /* Динамический фон с улучшенной анимацией */
         body {
             background: 
                 radial-gradient(circle at 20% 50%, rgba(26, 26, 46, 0.9) 0%, transparent 50%),
@@ -28,7 +31,7 @@
                     #0f3460 75%, 
                     #000000 100%);
             background-attachment: fixed;
-            background-size: 200% 200%;
+            background-size: 400% 400%;
             color: #f0f0f0;
             min-height: 100vh;
             display: flex;
@@ -37,7 +40,7 @@
             padding: 20px;
             overflow-x: hidden;
             position: relative;
-            animation: gradientShift 40s ease infinite;
+            animation: gradientShift 25s ease infinite;
         }
 
         @keyframes gradientShift {
@@ -47,7 +50,8 @@
             75% { background-position: 20% 100%; }
             100% { background-position: 0% 0%; }
         }
-        
+
+        /* Динамические частицы с плавным появлением */
         .particles {
             position: fixed;
             top: 0;
@@ -58,7 +62,6 @@
             z-index: 0;
             opacity: 0;
             animation: fadeInParticles 2s ease-out forwards;
-            will-change: transform;
         }
 
         @keyframes fadeInParticles {
@@ -74,10 +77,9 @@
             position: absolute;
             background: rgba(254, 202, 87, 0.1);
             border-radius: 50%;
-            animation: float 30s infinite linear;
+            animation: float 20s infinite linear;
             opacity: 0;
             animation-delay: calc(var(--particle-index) * 0.1s);
-            will-change: transform, opacity;
         }
 
         @keyframes float {
@@ -97,6 +99,7 @@
             }
         }
         
+        /* Телеграм секция */
         .telegram-section {
             width: 100%;
             max-width: 1200px;
@@ -244,6 +247,7 @@
             padding: 0 20px;
         }
         
+        /* Калькулятор */
         .calculator {
             background: rgba(30, 30, 46, 0.95);
             border-radius: 20px;
@@ -261,6 +265,7 @@
             margin: 0 20px;
         }
         
+        /* Бокс с формулой - ЯРКОЕ СВЕЧЕНИЕ */
         .formula {
             background: 
                 linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px) 0 0 / 20px 20px,
@@ -276,8 +281,8 @@
             box-shadow: 
                 0 15px 40px rgba(0, 0, 0, 0.6),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                0 0 80px rgba(254, 202, 87, 0.4),
-                0 0 120px rgba(254, 202, 87, 0.2);
+                0 0 80px rgba(254, 202, 87, 0.4), /* Яркое свечение */
+                0 0 120px rgba(254, 202, 87, 0.2); /* Еще ярче */
             transition: all 0.3s ease;
             min-height: 140px;
             display: flex;
@@ -285,8 +290,7 @@
             align-items: center;
             justify-content: center;
             border: 2px solid rgba(254, 202, 87, 0.5);
-            animation: formulaGlow 4s ease-in-out infinite;
-            will-change: auto;
+            animation: formulaGlow 3s ease-in-out infinite alternate;
         }
 
         @keyframes formulaGlow {
@@ -294,25 +298,21 @@
                 box-shadow: 
                     0 15px 40px rgba(0, 0, 0, 0.6),
                     inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                    0 0 80px rgba(254, 202, 87, 0.4);
-                border-color: rgba(254, 202, 87, 0.5);
-            }
-            50% {
-                box-shadow: 
-                    0 15px 40px rgba(0, 0, 0, 0.6),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                    0 0 100px rgba(254, 202, 87, 0.5);
-                border-color: rgba(254, 202, 87, 0.7);
+                    0 0 60px rgba(254, 202, 87, 0.3),
+                    0 0 100px rgba(254, 202, 87, 0.15);
+                border-color: rgba(254, 202, 87, 0.4);
             }
             100% {
                 box-shadow: 
                     0 15px 40px rgba(0, 0, 0, 0.6),
                     inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                    0 0 80px rgba(254, 202, 87, 0.4);
-                border-color: rgba(254, 202, 87, 0.5);
+                    0 0 100px rgba(254, 202, 87, 0.5),
+                    0 0 150px rgba(254, 202, 87, 0.25);
+                border-color: rgba(254, 202, 87, 0.7);
             }
         }
-        
+
+        /* Блик на формуле */
         .formula-highlight {
             position: absolute;
             top: 0;
@@ -329,7 +329,6 @@
             z-index: 2;
             transform: skewX(-15deg);
             animation: highlightMove 10s ease-in-out infinite;
-            will-change: left;
         }
 
         @keyframes highlightMove {
@@ -356,14 +355,16 @@
                 opacity: 0.3;
             }
         }
-        
+
+        /* Контейнер для формулы */
         .formula-container {
             position: relative;
             z-index: 3;
             width: 100%;
             overflow: hidden;
         }
-        
+
+        /* Стили для KaTeX с ярким свечением */
         .formula .katex {
             font-size: 1.8rem !important;
             filter: drop-shadow(0 0 15px rgba(254, 202, 87, 0.4));
@@ -497,27 +498,28 @@
             align-items: stretch;
         }
         
+        /* Стильные карточки с улучшенными шрифтами и анимациями - УВЕЛИЧЕНА ВЫСОТА */
         .param {
             background: linear-gradient(145deg, 
                 rgba(30, 30, 45, 0.95) 0%, 
                 rgba(50, 50, 70, 0.9) 50%, 
                 rgba(30, 30, 45, 0.95) 100%);
             border-radius: 18px;
-            padding: 30px;
+            padding: 30px; /* Увеличен padding */
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             display: flex;
             flex-direction: column;
             height: 100%;
-            min-height: 380px;
+            min-height: 380px; /* Увеличенная минимальная высота */
             position: relative;
             overflow: hidden;
             box-shadow: 
                 0 12px 30px rgba(0, 0, 0, 0.4),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            will-change: transform, box-shadow;
         }
         
+        /* Анимация при наведении на карточку */
         .param:hover {
             transform: translateY(-8px) scale(1.02);
             box-shadow: 
@@ -578,6 +580,7 @@
             letter-spacing: 0.3px;
         }
         
+        /* Статический вес параметра - теперь рядом с полем ввода */
         .param-weight {
             font-family: 'Roboto Mono', monospace;
             font-size: 0.85rem;
@@ -653,6 +656,7 @@
             gap: 1px;
         }
         
+        /* Кнопки-стрелочки */
         .input-arrow-group .arrow-btn {
             width: 22px;
             height: 16px;
@@ -715,6 +719,7 @@
             box-shadow: 0 0 10px rgba(72, 219, 251, 0.2);
         }
         
+        /* Кружочки на слайдерах */
         .slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
@@ -856,7 +861,6 @@
             flex-direction: column;
             align-items: center;
             z-index: 10;
-            will-change: left;
         }
         
         .indicator-label {
@@ -998,25 +1002,18 @@
                 transparent, 
                 rgba(255, 255, 255, 0.1), 
                 transparent);
-            transition: left 0s ease;
-            z-index: -1;
-            pointer-events: none;
-        }
-        
-        .download-btn:hover::before, .copy-result-btn:hover::before {
-            left: 100%;
             transition: left 0.5s ease;
-        }
-        
-        .download-btn:not(:hover)::before, .copy-result-btn:not(:hover)::before {
-            transition: left 0s ease !important;
-            left: -100%;
+            z-index: -1;
         }
         
         .download-btn:hover, .copy-result-btn:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 35px rgba(72, 219, 251, 0.4);
             border-color: rgba(72, 219, 251, 0.6);
+        }
+        
+        .download-btn:hover::before, .copy-result-btn:hover::before {
+            left: 100%;
         }
         
         .copy-result-btn {
@@ -1043,7 +1040,7 @@
             padding-top: 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.12);
             overflow-y: auto;
-            max-height: 180px;
+            max-height: 180px; /* Увеличена максимальная высота */
         }
         
         @keyframes fadeIn {
@@ -1061,7 +1058,8 @@
                 transform: translateY(0);
             }
         }
-        
+
+        /* Медиа-запросы с обновленными значениями для увеличенных карточек */
         @media (max-width: 1800px) {
             .param-container {
                 grid-template-columns: repeat(4, 1fr);
@@ -1092,11 +1090,11 @@
             }
             
             .param {
-                min-height: 360px;
+                min-height: 360px; /* Обновлено для медиа-запроса */
             }
             
             .param-description {
-                max-height: 160px;
+                max-height: 160px; /* Обновлено для медиа-запроса */
             }
         }
         
@@ -1138,8 +1136,8 @@
             }
             
             .param {
-                padding: 25px;
-                min-height: 340px;
+                padding: 25px; /* Обновлено */
+                min-height: 340px; /* Обновлено */
             }
             
             .download-btn, .copy-result-btn {
@@ -1152,7 +1150,7 @@
             }
             
             .param-description {
-                max-height: 150px;
+                max-height: 150px; /* Обновлено */
             }
         }
         
@@ -1277,13 +1275,13 @@
             }
             
             .param {
-                padding: 25px;
-                min-height: 320px;
+                padding: 25px; /* Обновлено */
+                min-height: 320px; /* Обновлено */
             }
             
             .param-description {
                 padding-top: 15px;
-                max-height: 140px;
+                max-height: 140px; /* Обновлено */
             }
         }
         
@@ -1321,8 +1319,8 @@
             }
             
             .param {
-                padding: 22px;
-                min-height: 300px;
+                padding: 22px; /* Обновлено */
+                min-height: 300px; /* Обновлено */
             }
             
             .param-name {
@@ -1357,7 +1355,7 @@
             
             .param-description {
                 font-size: 0.9rem;
-                max-height: 130px;
+                max-height: 130px; /* Обновлено */
                 padding-top: 12px;
             }
             
@@ -1415,8 +1413,8 @@
             }
             
             .param {
-                padding: 20px;
-                min-height: 280px;
+                padding: 20px; /* Обновлено */
+                min-height: 280px; /* Обновлено */
             }
             
             .input-arrow-group .number-input {
@@ -1466,10 +1464,11 @@
             
             .param-description {
                 font-size: 0.85rem;
-                max-height: 120px;
+                max-height: 120px; /* Обновлено */
             }
         }
         
+        /* Горизонтальная ориентация */
         @media (max-height: 600px) and (orientation: landscape) {
             .container {
                 gap: 20px;
@@ -1485,7 +1484,7 @@
             }
             
             .param {
-                min-height: 260px;
+                min-height: 260px; /* Обновлено */
             }
             
             .scale-container {
@@ -1539,7 +1538,6 @@
             gap: 30px;
             animation: slideWords 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
             width: 100%;
-            will-change: transform;
         }
         
         .title-word {
@@ -1614,7 +1612,8 @@
                 opacity: 0.3;
             }
         }
-        
+
+        /* Адаптивные анимации заголовка */
         @media (max-width: 1100px) {
             .animated-title-container {
                 height: 80px;
@@ -1686,6 +1685,7 @@
             }
         }
         
+        /* Мобильная оптимизация */
         .mobile-optimized {
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
@@ -1695,6 +1695,7 @@
             -webkit-tap-highlight-color: transparent;
         }
         
+        /* Алёрты */
         @media (max-width: 768px) {
             .warning-alert, .success-alert {
                 width: 90%;
@@ -1710,109 +1711,10 @@
                 font-size: 1.2rem;
             }
         }
-
-        @media (max-width: 768px) {
-            .formula .katex-display {
-                display: block !important;
-                overflow: auto hidden !important;
-                -webkit-overflow-scrolling: touch !important;
-                padding: 10px 5px !important;
-            }
-            
-            .formula .katex {
-                font-size: 1.2rem !important;
-                transform: scale(0.85) !important;
-                transform-origin: left center !important;
-                max-width: 100% !important;
-                display: inline-block !important;
-                white-space: nowrap !important;
-            }
-            
-            .formula-container {
-                overflow: hidden !important;
-                width: 100% !important;
-                position: relative !important;
-            }
-            
-            .formula {
-                min-height: 120px !important;
-                padding: 20px 15px !important;
-                overflow: hidden !important;
-            }
-            
-            .formula-description {
-                font-size: 0.9rem !important;
-                margin-top: 10px !important;
-                padding: 0 5px !important;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .formula .katex {
-                font-size: 1rem !important;
-                transform: scale(0.75) !important;
-                transform-origin: left center !important;
-            }
-            
-            .formula {
-                min-height: 110px !important;
-                padding: 15px 10px !important;
-            }
-            
-            .formula .katex-display {
-                padding: 8px 3px !important;
-                margin: 0 auto !important;
-                text-align: center !important;
-            }
-        }
-        
-        @media (max-width: 360px) {
-            .formula .katex {
-                font-size: 0.9rem !important;
-                transform: scale(0.7) !important;
-                transform-origin: center center !important;
-            }
-            
-            .formula {
-                min-height: 100px !important;
-                padding: 12px 8px !important;
-            }
-            
-            .formula {
-                animation: formulaGlow 6s ease-in-out infinite !important;
-            }
-            
-            .formula-highlight {
-                display: none !important;
-            }
-        }
-        
-        @media (max-height: 600px) and (orientation: landscape) {
-            .formula .katex {
-                font-size: 1rem !important;
-                transform: scale(0.8) !important;
-            }
-            
-            .formula {
-                min-height: 90px !important;
-                padding: 15px 10px !important;
-                margin: 10px 0 40px 0 !important;
-            }
-        }
-        
-        @media (prefers-reduced-motion: reduce) {
-            .formula {
-                animation: none !important;
-                box-shadow: 
-                    0 15px 40px rgba(0, 0, 0, 0.6),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                    0 0 90px rgba(254, 202, 87, 0.45) !important;
-                border-color: rgba(254, 202, 87, 0.6) !important;
-            }
-        }
     </style>
 </head>
 <body class="mobile-optimized">
+    <!-- Динамические частицы -->
     <div class="particles" id="particles"></div>
     
     <div class="container">
@@ -1831,27 +1733,37 @@
         
         <div class="calculator">
             <div class="formula" id="formula">
+                <!-- Блик на формуле -->
                 <div class="formula-highlight"></div>
+                <!-- Контейнер для формулы -->
                 <div class="formula-container">
+                    <!-- Формула будет отрендерена KaTeX -->
                 </div>
             </div>
             
             <div class="param-container" id="params-container">
+                <!-- Параметры будут вставлены здесь -->
             </div>
             
             <div class="scale-container">
                 <div class="scale">
+                    <!-- Основная линия шкалы -->
                     <div class="scale-line"></div>
                     
+                    <!-- Контейнер для засечек -->
                     <div class="scale-ticks" id="scale-ticks">
+                        <!-- Засечки будут созданы скриптом -->
                     </div>
                     
+                    <!-- Индикатор -->
                     <div class="indicator" id="indicator" style="left: 100%;">
                         <div class="indicator-label" id="indicator-label">WS = 1000</div>
                         <div class="triangle">▼</div>
                     </div>
                     
+                    <!-- Контейнер для эмодзи -->
                     <div class="scale-markers" id="scale-markers">
+                        <!-- Эмодзи будут созданы скриптом -->
                     </div>
                 </div>
             </div>
@@ -1871,6 +1783,7 @@
         </div>
     </div>
 
+    <!-- Телеграм-кнопки с заголовком -->
     <div class="telegram-section">
         <h3 class="telegram-title">Подписаться на авторов</h3>
         <div class="telegram-buttons">
@@ -1880,41 +1793,45 @@
         </div>
     </div>
 
+    <!-- KaTeX для рендеринга формул -->
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <script>
+        // Создание динамических частиц с плавным появлением
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
-            const particleCount = window.innerWidth <= 768 ? 12 : 20;
-            
-            const fragment = document.createDocumentFragment();
+            const particleCount = 30;
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 
+                // Устанавливаем индекс частицы для задержки
                 particle.style.setProperty('--particle-index', i);
                 
-                const size = Math.random() * 2 + 1;
+                // Случайный размер от 1 до 5px
+                const size = Math.random() * 4 + 1;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 
+                // Случайная начальная позиция
                 particle.style.left = `${Math.random() * 100}vw`;
                 particle.style.top = `${Math.random() * 100}vh`;
                 
+                // Случайная задержка анимации
                 particle.style.animationDelay = `${Math.random() * 20}s`;
                 
-                const duration = 20 + Math.random() * 20;
+                // Случайная продолжительность анимации
+                const duration = 15 + Math.random() * 15;
                 particle.style.animationDuration = `${duration}s`;
                 
-                fragment.appendChild(particle);
+                particlesContainer.appendChild(particle);
             }
-            
-            particlesContainer.appendChild(fragment);
         }
         
-        setTimeout(createParticles, 500);
+        // Инициализация частиц
+        createParticles();
         
-        const parameters = [
+            const parameters = [
             {
                 id: "svo",
                 name: "Проведено СВО",
@@ -2029,36 +1946,25 @@
         let currentNLS = 1000;
         let lastWsValue = 1000;
         let activeSliders = new Set();
-        let cachedElements = {};
-        
-        function getElement(id) {
-            if (!cachedElements[id]) {
-                cachedElements[id] = document.getElementById(id);
-            }
-            return cachedElements[id];
-        }
         
         function logisticFunction(norm) {
-            const k = 10;
-            const c = 0.5;
+            // Логистическая функция с центром в 0.5 и крутизной 10
+            // f(x) = 1 / (1 + e^(k*(x - c)))
+            // где k - крутизна, c - центр
+            const k = 10; // крутизна - регулирует скорость спада
+            const c = 0.5; // центр функции
             
             return 1 / (1 + Math.exp(k * (norm - c)));
         }
 
         function renderFormula() {
-            const formulaElement = getElement('formula');
+            const formulaElement = document.getElementById('formula');
             const formulaContainer = formulaElement.querySelector('.formula-container');
-
-            formulaContainer.innerHTML = '';
             
             const formula = String.raw`
-                \text{WS}(P, t) = 1000 \cdot \frac{1}{1 + e^{10(\|\mathbf{x}\|_{W} - 0.5)}}, \\
+                \text{WS}(P, t) = 1000 \cdot \frac{1}{1 + e^{10(\|\mathbf{x}\|_{W} - 0.5)}}, \quad 
                 \|\mathbf{x}\|_{W} = \sqrt{\sum_{i=1}^{n} w_i \cdot x_i^2}
             `;
-
-            const formulaWrapper = document.createElement('div');
-            formulaWrapper.className = 'katex-formula-wrapper';
-            formulaWrapper.style.cssText = 'width: 100%; overflow: hidden;';
             
             katex.render(formula, formulaContainer, {
                 displayMode: true,
@@ -2066,48 +1972,17 @@
                 fleqn: false,
                 output: 'html',
                 trust: true
-                maxSize: window.innerWidth <= 768 ? 14 : Infinity,
-                maxExpand: window.innerWidth <= 768 ? 100 : 1000
             });
-
-            formulaContainer.appendChild(formulaWrapper);
             
             const description = document.createElement('div');
             description.className = 'formula-description';
             description.innerHTML = 'где <span style="color:#feca57; text-shadow: 0 0 10px rgba(254, 202, 87, 0.4);">w<sub>i</sub></span> — вес параметра, <span style="color:#48dbfb; text-shadow: 0 0 10px rgba(72, 219, 251, 0.4);">x<sub>i</sub></span> — нормализованное значение параметра';
             formulaElement.appendChild(description);
-            adaptFormulaToScreen();
         }
-
-        function adaptFormulaToScreen() {
-            const formulaWrapper = document.querySelector('.katex-formula-wrapper');
-            if (!formulaWrapper) return;
-            
-            const container = document.querySelector('.formula-container');
-            const formula = formulaWrapper.querySelector('.katex');
-            
-            if (!formula || !container) return;
-            
-            const containerWidth = container.offsetWidth;
-            const formulaWidth = formula.scrollWidth;
-            
-            if (formulaWidth > containerWidth && window.innerWidth <= 768) {
-                const scale = Math.min(0.95, containerWidth / formulaWidth * 0.9);
-                formula.style.transform = `scale(${scale})`;
-                formula.style.transformOrigin = 'left center';
-            }
-        }
-
-        window.addEventListener('resize', () => {
-            adaptFormulaToScreen();
-        });
 
         function createScale() {
-            const ticksContainer = getElement('scale-ticks');
-            const markersContainer = getElement('scale-markers');
-            
-            const ticksFragment = document.createDocumentFragment();
-            const markersFragment = document.createDocumentFragment();
+            const ticksContainer = document.getElementById('scale-ticks');
+            const markersContainer = document.getElementById('scale-markers');
             
             for (let i = 0; i <= 100; i += 10) {
                 const tick = document.createElement('div');
@@ -2121,7 +1996,7 @@
                 }
                 
                 tick.style.left = `${i}%`;
-                ticksFragment.appendChild(tick);
+                ticksContainer.appendChild(tick);
             }
             
             emojiPositions.forEach(pos => {
@@ -2132,17 +2007,12 @@
                     <div style="filter: drop-shadow(0 0 5px rgba(255,255,255,0.4));">${pos.emoji}</div>
                     <div class="marker-value">${pos.value}</div>
                 `;
-                markersFragment.appendChild(marker);
+                markersContainer.appendChild(marker);
             });
-            
-            ticksContainer.appendChild(ticksFragment);
-            markersContainer.appendChild(markersFragment);
         }
 
         function initParameters() {
-            const container = getElement('params-container');
-            
-            const fragment = document.createDocumentFragment();
+            const container = document.getElementById('params-container');
             
             parameters.forEach(param => {
                 const paramElement = document.createElement('div');
@@ -2178,125 +2048,104 @@
                     </div>
                 `;
                 
-                fragment.appendChild(paramElement);
+                container.appendChild(paramElement);
             });
-            
-            container.appendChild(fragment);
-            
-            container.addEventListener('input', function(e) {
-                if (e.target.classList.contains('slider')) {
-                    const paramId = e.target.dataset.id;
-                    const input = getElement(`input-${paramId}`);
-                    input.value = e.target.value;
-                    updateParameter(paramId, parseFloat(e.target.value));
+
+            parameters.forEach(param => {
+                const slider = document.getElementById(`slider-${param.id}`);
+                const input = document.getElementById(`input-${param.id}`);
+                
+                const addVibration = () => {
+                    if (navigator.vibrate && window.innerWidth <= 768) {
+                        navigator.vibrate(10);
+                    }
+                };
+                
+                // Обработчики для активации/деактивации слайдера
+                slider.addEventListener('mousedown', function() {
+                    activeSliders.add(this.id);
+                    this.classList.add('active');
+                });
+                
+                slider.addEventListener('touchstart', function() {
+                    activeSliders.add(this.id);
+                    this.classList.add('active');
+                });
+                
+                slider.addEventListener('mouseup', function() {
+                    activeSliders.delete(this.id);
+                    if (activeSliders.size === 0) {
+                        this.classList.remove('active');
+                    }
+                });
+                
+                slider.addEventListener('touchend', function() {
+                    activeSliders.delete(this.id);
+                    if (activeSliders.size === 0) {
+                        this.classList.remove('active');
+                    }
+                });
+                
+                slider.addEventListener('input', function() {
+                    input.value = this.value;
+                    updateParameter(param.id, parseFloat(this.value));
                     calculateWS();
                     addVibration();
                     
-                    if (!e.target.classList.contains('active')) {
-                        e.target.classList.add('active');
+                    // Подсветка слайдера остается активной
+                    if (!this.classList.contains('active')) {
+                        this.classList.add('active');
                     }
-                }
+                });
                 
-                if (e.target.classList.contains('value-input')) {
-                    const paramId = e.target.dataset.id;
-                    let value = parseFloat(e.target.value);
-                    const param = parameters.find(p => p.id === paramId);
-                    
+                input.addEventListener('input', function() {
+                    let value = parseFloat(this.value);
                     if (isNaN(value)) value = 0;
                     if (value < 0) value = 0;
                     if (value > param.max) value = param.max;
                     
-                    e.target.value = value;
-                    const slider = getElement(`slider-${paramId}`);
+                    this.value = value;
                     slider.value = value;
-                    updateParameter(paramId, value);
+                    updateParameter(param.id, value);
                     calculateWS();
                     addVibration();
-                }
-            });
-            
-            container.addEventListener('change', function(e) {
-                if (e.target.classList.contains('slider')) {
-                    activeSliders.delete(e.target.id);
-                    if (activeSliders.size === 0) {
-                        e.target.classList.remove('active');
+                });
+                
+                // Обработчики для кастомных стрелок
+                document.querySelectorAll(`.arrow-btn[data-for="input-${param.id}"]`).forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const step = parseFloat(this.getAttribute('data-step'));
+                        const isUp = this.classList.contains('arrow-up');
+                        let currentValue = parseFloat(input.value) || 0;
+                        
+                        if (isUp) {
+                            currentValue += step;
+                            if (currentValue > param.max) currentValue = param.max;
+                        } else {
+                            currentValue -= step;
+                            if (currentValue < 0) currentValue = 0;
+                        }
+                        
+                        input.value = currentValue;
+                        slider.value = currentValue;
+                        updateParameter(param.id, currentValue);
+                        calculateWS();
+                        addVibration();
+                        
+                        this.style.transform = 'scale(0.9)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 150);
+                    });
+                });
+                
+                // Эффект при фокусе на мобильных
+                input.addEventListener('focus', function() {
+                    if (window.innerWidth <= 768) {
+                        this.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }
-                }
+                });
             });
-            
-            container.addEventListener('mousedown', function(e) {
-                if (e.target.classList.contains('slider')) {
-                    activeSliders.add(e.target.id);
-                    e.target.classList.add('active');
-                }
-            });
-            
-            container.addEventListener('touchstart', function(e) {
-                if (e.target.classList.contains('slider')) {
-                    activeSliders.add(e.target.id);
-                    e.target.classList.add('active');
-                }
-            });
-            
-            container.addEventListener('mouseup', function(e) {
-                if (e.target.classList.contains('slider')) {
-                    activeSliders.delete(e.target.id);
-                    if (activeSliders.size === 0) {
-                        e.target.classList.remove('active');
-                    }
-                }
-            });
-            
-            container.addEventListener('touchend', function(e) {
-                if (e.target.classList.contains('slider')) {
-                    activeSliders.delete(e.target.id);
-                    if (activeSliders.size === 0) {
-                        e.target.classList.remove('active');
-                    }
-                }
-            });
-            
-            container.addEventListener('click', function(e) {
-                const arrowBtn = e.target.closest('.arrow-btn');
-                if (arrowBtn) {
-                    const inputId = arrowBtn.getAttribute('data-for');
-                    const step = parseFloat(arrowBtn.getAttribute('data-step'));
-                    const isUp = arrowBtn.classList.contains('arrow-up');
-                    const input = getElement(inputId);
-                    const paramId = input.dataset.id;
-                    const param = parameters.find(p => p.id === paramId);
-                    
-                    let currentValue = parseFloat(input.value) || 0;
-                    
-                    if (isUp) {
-                        currentValue += step;
-                        if (currentValue > param.max) currentValue = param.max;
-                    } else {
-                        currentValue -= step;
-                        if (currentValue < 0) currentValue = 0;
-                    }
-                    
-                    input.value = currentValue;
-                    const slider = getElement(`slider-${paramId}`);
-                    slider.value = currentValue;
-                    updateParameter(paramId, currentValue);
-                    calculateWS();
-                    addVibration();
-                    
-                    arrowBtn.style.transform = 'scale(0.9)';
-                    setTimeout(() => {
-                        arrowBtn.style.transform = '';
-                    }, 150);
-                }
-            });
-            
-            container.addEventListener('focus', function(e) {
-                if (e.target.classList.contains('number-input') && window.innerWidth <= 768) {
-                    setTimeout(() => {
-                        e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }, 100);
-                }
-            }, true);
         }
 
         function updateParameter(id, value) {
@@ -2305,46 +2154,40 @@
                 param.value = value;
             }
         }
-        
-        let calculateWsTimeout = null;
-        
+
         function calculateWS() {
-            if (calculateWsTimeout) {
-                clearTimeout(calculateWsTimeout);
+            let weightedNorm = 0;
+            
+            parameters.forEach(param => {
+                const normalizedValue = param.value / param.max;
+                weightedNorm += param.weight * Math.pow(normalizedValue, 2);
+            });
+            
+            const norm = Math.sqrt(weightedNorm);
+            
+            // Используем логистическую функцию
+            const ws = 1000 * logisticFunction(norm);
+            
+            if (Math.abs(ws - lastWsValue) > 50) {
+                const indicator = document.getElementById('indicator');
+                indicator.style.transform = `translateX(-50%) scale(1.1)`;
+                setTimeout(() => {
+                    indicator.style.transform = `translateX(-50%) scale(1)`;
+                }, 300);
             }
             
-            calculateWsTimeout = setTimeout(() => {
-                let weightedNorm = 0;
-                
-                for (let i = 0; i < parameters.length; i++) {
-                    const param = parameters[i];
-                    const normalizedValue = param.value / param.max;
-                    weightedNorm += param.weight * Math.pow(normalizedValue, 2);
-                }
-                
-                const norm = Math.sqrt(weightedNorm);
-                
-                const ws = 1000 * logisticFunction(norm);
-                
-                if (Math.abs(ws - lastWsValue) > 50) {
-                    const indicator = getElement('indicator');
-                    indicator.style.transform = `translateX(-50%) scale(1.1)`;
-                    setTimeout(() => {
-                        indicator.style.transform = `translateX(-50%) scale(1)`;
-                    }, 300);
-                }
-                
-                lastWsValue = ws;
-                currentNLS = ws;
-                
-                updateIndicator(ws);
-                updateInterpretation(ws);
-            }, 50);
+            lastWsValue = ws;
+            currentNLS = ws;
+            
+            updateIndicator(ws);
+            updateInterpretation(ws);
+            
+            return ws;
         }
 
         function updateIndicator(ws) {
-            const indicator = getElement('indicator');
-            const indicatorLabel = getElement('indicator-label');
+            const indicator = document.getElementById('indicator');
+            const indicatorLabel = document.getElementById('indicator-label');
             const triangle = document.querySelector('.triangle');
             
             let position = (ws / 1000) * 100;
@@ -2386,10 +2229,16 @@
 
         function interpolateColor(color1, color2, factor) {
             const hexToRgb = (hex) => {
-                const r = parseInt(hex.slice(1,3), 16);
-                const g = parseInt(hex.slice(3,5), 16);
-                const b = parseInt(hex.slice(5,7), 16);
-                return {r, g, b};
+                const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                return result ? {
+                    r: parseInt(result[1], 16),
+                    g: parseInt(result[2], 16),
+                    b: parseInt(result[3], 16)
+                } : null;
+            };
+            
+            const rgbToHex = (r, g, b) => {
+                return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
             };
             
             const rgb1 = hexToRgb(color1);
@@ -2399,29 +2248,12 @@
             const g = Math.round(rgb1.g + (rgb2.g - rgb1.g) * factor);
             const b = Math.round(rgb1.b + (rgb2.b - rgb1.b) * factor);
             
-            return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
+            return rgbToHex(r, g, b);
         }
 
         function updateInterpretation(ws) {
-            const interpretationEl = getElement('interpretation');
-            
-            let interpretation = null;
-            let left = 0;
-            let right = interpretations.length - 1;
-            
-            while (left <= right) {
-                const mid = Math.floor((left + right) / 2);
-                const item = interpretations[mid];
-                
-                if (ws >= item.min && ws <= item.max) {
-                    interpretation = item;
-                    break;
-                } else if (ws < item.min) {
-                    right = mid - 1;
-                } else {
-                    left = mid + 1;
-                }
-            }
+            const interpretationEl = document.getElementById('interpretation');
+            const interpretation = interpretations.find(item => ws >= item.min && ws <= item.max);
             
             if (interpretation) {
                 interpretationEl.style.opacity = '0.5';
@@ -2441,30 +2273,21 @@
         }
 
         function initRandomValues() {
-            const updates = [];
-            
             parameters.forEach(param => {
                 const randomValue = Math.floor(Math.random() * (param.max * 0.3));
-                updates.push({
-                    paramId: param.id,
-                    value: randomValue
-                });
-                param.value = randomValue;
-            });
-            
-            updates.forEach(update => {
-                const slider = getElement(`slider-${update.paramId}`);
-                const input = getElement(`input-${update.paramId}`);
+                const slider = document.getElementById(`slider-${param.id}`);
+                const input = document.getElementById(`input-${param.id}`);
                 
-                if (slider) slider.value = update.value;
-                if (input) input.value = update.value;
+                slider.value = randomValue;
+                input.value = randomValue;
+                param.value = randomValue;
             });
             
             calculateWS();
         }
 
         function showSuccessAlert() {
-            const success = getElement('success-alert');
+            const success = document.getElementById('success-alert');
             success.classList.remove('show');
             
             setTimeout(() => {
@@ -2477,14 +2300,12 @@
         
         function encodeParameters() {
             let encodedParts = [];
-            encodedParts.length = parameters.length;
-            
-            for (let i = 0; i < parameters.length; i++) {
-                const param = parameters[i];
+            parameters.forEach((param, index) => {
+                // Кодируем только значения, веса зафиксированы
                 const scaledValue = Math.round((param.value / param.max) * 4095);
                 let encoded = encodeBase62(scaledValue);
-                encodedParts[i] = encoded.length.toString(36) + encoded;
-            }
+                encodedParts.push(encoded.length.toString(36) + encoded);
+            });
             return encodedParts.join('');
         }
         
@@ -2529,9 +2350,12 @@
             const hash = window.location.hash;
             if (hash && hash.startsWith('#s=')) {
                 const encodedString = hash.substring(3);
+                console.log('Декодируем параметры из URL:', encodedString);
                 if (encodedString && decodeParameters(encodedString)) {
                     updateUIFromParameters();
                     return true;
+                } else {
+                    console.error('Не удалось декодировать параметры из URL');
                 }
             }
             return false;
@@ -2539,8 +2363,8 @@
         
         function updateUIFromParameters() {
             parameters.forEach((param, index) => {
-                const slider = getElement(`slider-${param.id}`);
-                const input = getElement(`input-${param.id}`);
+                const slider = document.getElementById(`slider-${param.id}`);
+                const input = document.getElementById(`input-${param.id}`);
                 
                 if (slider) slider.value = param.value;
                 if (input) input.value = param.value;
@@ -2554,7 +2378,7 @@
                 await navigator.clipboard.writeText(text);
                 showSuccessAlert();
                 
-                const copyBtn = getElement('copy-result');
+                const copyBtn = document.getElementById('copy-result');
                 copyBtn.style.transform = 'scale(0.95)';
                 copyBtn.style.background = 'linear-gradient(135deg, rgba(46, 204, 113, 0.6), rgba(46, 204, 113, 0.8))';
                 setTimeout(() => {
@@ -2587,7 +2411,7 @@
         }
         
         function setupShareButton() {
-            const shareButton = getElement('copy-result');
+            const shareButton = document.getElementById('copy-result');
             
             shareButton.addEventListener('click', async function() {
                 const ws = Math.round(currentNLS);
@@ -2599,7 +2423,8 @@
                 await copyToClipboard(shareText);
             });
         }
-        
+
+        // Вспомогательные функции для кодирования
         const BASE62_ALPHABET = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
         
         function encodeBase62(num) {
@@ -2622,14 +2447,6 @@
             }
             return result;
         }
-        
-        const supportsVibration = 'vibrate' in navigator;
-        
-        function addVibration() {
-            if (supportsVibration && window.innerWidth <= 768) {
-                navigator.vibrate(10);
-            }
-        }
 
         document.addEventListener('DOMContentLoaded', function() {
             renderFormula();
@@ -2645,14 +2462,19 @@
             
             if (window.innerWidth <= 768) {
                 document.body.classList.add('mobile-optimized');
+                
+                document.querySelectorAll('input, select, textarea').forEach(el => {
+                    el.addEventListener('focus', function() {
+                        setTimeout(() => {
+                            this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 300);
+                    });
+                });
             }
             
-            requestAnimationFrame(() => {
-                const calculator = document.querySelector('.calculator');
-                calculator.style.opacity = '1';
-            });
-
-            setTimeout(adaptFormulaToScreen, 100);
+            setTimeout(() => {
+                document.querySelector('.calculator').style.opacity = '1';
+            }, 500);
         });
     </script>
 
